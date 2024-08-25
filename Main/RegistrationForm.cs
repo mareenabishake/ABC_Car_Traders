@@ -46,7 +46,7 @@ namespace ABC_Car_Traders
 
         private void linkBackToLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Close the registration form and go back to the login form
+            
             this.Close();
         }
     }
