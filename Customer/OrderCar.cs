@@ -14,13 +14,14 @@ namespace ABC_Car_Traders
             LoadCarDetails();
         }
 
+        // Loads all car details into the DataGridView
         private void LoadCarDetails()
         {
-            // Load all car details into the DataGridView
             Car car = new Car();
             dgvCarDetails.DataSource = car.GetAllCarDetails();
         }
 
+        // Places a new car order
         private void btnOrderCar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtCustomerID.Text) || string.IsNullOrEmpty(txtCarID.Text))
@@ -37,12 +38,14 @@ namespace ABC_Car_Traders
             ClearFields();
         }
 
+        // Clears input fields
         private void ClearFields()
         {
             txtCustomerID.Clear();
             txtCarID.Clear();
         }
 
+        // Loads selected car details into input fields
         private void dgvCarDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -52,6 +55,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Menu strip navigation methods
         private void txtMenuStripSearchCarDetails_Click(object sender, EventArgs e)
         {
             SearchCarDetails searchCarDetailsForm = new SearchCarDetails();

@@ -13,6 +13,7 @@ namespace ABC_Car_Traders
             order = new Order();
         }
 
+        // View the status of an order
         private void btnViewStatus_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtOrderID.Text))
@@ -34,6 +35,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Menu strip navigation methods
         private void txtMenuStripSearchCarDetails_Click(object sender, EventArgs e)
         {
             SearchCarDetails searchCarDetailsForm = new SearchCarDetails();

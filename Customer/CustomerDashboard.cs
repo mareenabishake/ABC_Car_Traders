@@ -17,6 +17,7 @@ namespace ABC_Car_Traders
             InitializeComponent();
         }
 
+        // Opens the SearchCarDetails form
         private void btnSearchCarDetails_Click(object sender, EventArgs e)
         {
             SearchCarDetails searchCarDetailsForm = new SearchCarDetails();
@@ -24,6 +25,7 @@ namespace ABC_Car_Traders
             this.Hide();
         }
 
+        // Opens the SearchCarParts form
         private void btnSearchCarParts_Click(object sender, EventArgs e)
         {
             SearchCarParts searchCarPartsForm = new SearchCarParts();
@@ -31,6 +33,7 @@ namespace ABC_Car_Traders
             this.Hide();
         }
 
+        // Opens the OrderCar form
         private void btnOrderCar_Click(object sender, EventArgs e)
         {
             OrderCar orderCarForm = new OrderCar();
@@ -38,6 +41,7 @@ namespace ABC_Car_Traders
             this.Hide();
         }
 
+        // Opens the OrderCarParts form
         private void btnOrderCarParts_Click(object sender, EventArgs e)
         {
             OrderCarParts orderCarPartsForm = new OrderCarParts();
@@ -45,13 +49,12 @@ namespace ABC_Car_Traders
             this.Hide();
         }
 
+        // Opens the ViewOrderStatus form
         private void btnViewOrderStatus_Click(object sender, EventArgs e)
         {
             ViewOrderStatus viewOrderStatusForm = new ViewOrderStatus();
             viewOrderStatusForm.Show();
             this.Hide();
         }
-
-
     }
 }

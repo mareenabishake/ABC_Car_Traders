@@ -6,35 +6,42 @@ namespace ABC_Car_Traders
 {
     public partial class ManageCustomerDetails : Form
     {
-        private User user;
+        private User user; // User object to manage customer details
 
         public ManageCustomerDetails()
         {
             InitializeComponent();
-            user = new User();
-            LoadCustomerDetails(); // Load all customer details on form load
+            user = new User(); // Initialize User object
+            LoadCustomerDetails(); // Load customer details into DataGridView on form load
         }
 
+        // Loads all customer details into the DataGridView
         private void LoadCustomerDetails()
         {
             dgvCustomerDetails.DataSource = user.GetAllCustomerDetails();
         }
 
+        // Adds a new customer
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtPassword.Text) || string.IsNullOrEmpty(txtCustomerName.Text) || string.IsNullOrEmpty(txtCustomerEmail.Text) || string.IsNullOrEmpty(txtCustomerPhone.Text) || string.IsNullOrEmpty(txtCustomerAddress.Text))
+            // Validate input fields
+            if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtPassword.Text) ||
+                string.IsNullOrEmpty(txtCustomerName.Text) || string.IsNullOrEmpty(txtCustomerEmail.Text) ||
+                string.IsNullOrEmpty(txtCustomerPhone.Text) || string.IsNullOrEmpty(txtCustomerAddress.Text))
             {
                 MessageBox.Show("All fields except Customer ID are required to add a new customer.");
                 return;
             }
 
-            bool isAdded = user.Register(txtUsername.Text, txtPassword.Text, txtCustomerName.Text, txtCustomerEmail.Text, txtCustomerPhone.Text, txtCustomerAddress.Text);
+            // Add customer and check if successful
+            bool isAdded = user.Register(txtUsername.Text, txtPassword.Text, txtCustomerName.Text, txtCustomerEmail.Text,
+                                         txtCustomerPhone.Text, txtCustomerAddress.Text);
 
             if (isAdded)
             {
                 MessageBox.Show("Customer added successfully!");
-                ClearFields();
-                LoadCustomerDetails(); // Refresh the DataGridView
+                ClearFields(); // Clear input fields
+                LoadCustomerDetails(); // Refresh DataGridView
             }
             else
             {
@@ -42,21 +49,25 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Edits existing customer details
         private void btnEditCustomer_Click(object sender, EventArgs e)
         {
+            // Validate customer selection
             if (string.IsNullOrEmpty(txtCustomerID.Text))
             {
                 MessageBox.Show("Customer ID is required to edit customer details.");
                 return;
             }
 
-            bool isUpdated = user.EditCustomer(int.Parse(txtCustomerID.Text), txtCustomerName.Text, txtCustomerEmail.Text, txtCustomerPhone.Text, txtCustomerAddress.Text);
+            // Update customer and check if successful
+            bool isUpdated = user.EditCustomer(int.Parse(txtCustomerID.Text), txtCustomerName.Text, txtCustomerEmail.Text,
+                                               txtCustomerPhone.Text, txtCustomerAddress.Text);
 
             if (isUpdated)
             {
                 MessageBox.Show("Customer updated successfully!");
-                ClearFields();
-                LoadCustomerDetails(); // Refresh the DataGridView
+                ClearFields(); // Clear input fields
+                LoadCustomerDetails(); // Refresh DataGridView
             }
             else
             {
@@ -64,21 +75,24 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Deletes a selected customer
         private void btnDeleteCustomer_Click(object sender, EventArgs e)
         {
+            // Validate customer selection
             if (string.IsNullOrEmpty(txtCustomerID.Text))
             {
                 MessageBox.Show("Customer ID is required to delete a customer.");
                 return;
             }
 
+            // Delete customer and check if successful
             bool isDeleted = user.DeleteCustomer(int.Parse(txtCustomerID.Text));
 
             if (isDeleted)
             {
                 MessageBox.Show("Customer deleted successfully!");
-                ClearFields();
-                LoadCustomerDetails(); // Refresh the DataGridView
+                ClearFields(); // Clear input fields
+                LoadCustomerDetails(); // Refresh DataGridView
             }
             else
             {
@@ -86,6 +100,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Clears all input fields
         private void ClearFields()
         {
             txtCustomerID.Clear();
@@ -97,6 +112,7 @@ namespace ABC_Car_Traders
             txtCustomerAddress.Clear();
         }
 
+        // Handles cell click event to load selected customer details into input fields
         private void dgvCustomerDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -113,6 +129,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Menu strip events to navigate between different forms
         private void txtMenuStripManageCarDetails_Click(object sender, EventArgs e)
         {
             ManageCarDetails carDetailsForm = new ManageCarDetails();

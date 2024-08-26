@@ -5,22 +5,25 @@ namespace ABC_Car_Traders
 {
     public partial class ManageCarParts : Form
     {
-        private CarPart carPart;
+        private CarPart carPart; // Object to manage car parts
 
         public ManageCarParts()
         {
             InitializeComponent();
-            carPart = new CarPart();
-            LoadCarPartDetails();
+            carPart = new CarPart(); // Initialize CarPart object
+            LoadCarPartDetails(); // Load car part details into DataGridView
         }
 
+        // Loads car part details into DataGridView
         private void LoadCarPartDetails()
         {
             dgvCarParts.DataSource = carPart.GetAllCarPartDetails();
         }
 
+        // Adds a new car part
         private void btnAddPart_Click(object sender, EventArgs e)
         {
+            // Validate input fields
             if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtDescription.Text) ||
                 string.IsNullOrEmpty(txtPrice.Text))
             {
@@ -29,13 +32,17 @@ namespace ABC_Car_Traders
             }
 
             decimal price = decimal.Parse(txtPrice.Text);
+
+            // Add car part to the database
             carPart.AddCarPart(txtName.Text, txtDescription.Text, price);
-            ClearFields();
-            LoadCarPartDetails();
+            ClearFields(); // Clear input fields
+            LoadCarPartDetails(); // Refresh DataGridView
         }
 
+        // Edits an existing car part
         private void btnEditPart_Click(object sender, EventArgs e)
         {
+            // Validate part selection
             if (string.IsNullOrEmpty(txtPartID.Text))
             {
                 MessageBox.Show("Please select a part to edit.");
@@ -45,13 +52,16 @@ namespace ABC_Car_Traders
             int partID = int.Parse(txtPartID.Text);
             decimal price = decimal.Parse(txtPrice.Text);
 
+            // Edit car part details in the database
             carPart.EditCarPart(partID, txtName.Text, txtDescription.Text, price);
-            ClearFields();
-            LoadCarPartDetails();
+            ClearFields(); // Clear input fields
+            LoadCarPartDetails(); // Refresh DataGridView
         }
 
+        // Deletes a selected car part
         private void btnDeletePart_Click(object sender, EventArgs e)
         {
+            // Validate part selection
             if (string.IsNullOrEmpty(txtPartID.Text))
             {
                 MessageBox.Show("Please select a part to delete.");
@@ -59,11 +69,12 @@ namespace ABC_Car_Traders
             }
 
             int partID = int.Parse(txtPartID.Text);
-            carPart.DeleteCarPart(partID);
-            ClearFields();
-            LoadCarPartDetails();
+            carPart.DeleteCarPart(partID); // Delete car part from the database
+            ClearFields(); // Clear input fields
+            LoadCarPartDetails(); // Refresh DataGridView
         }
 
+        // Handles cell click event to load selected car part details into input fields
         private void dgvCarParts_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -76,6 +87,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Clears input fields
         private void ClearFields()
         {
             txtPartID.Clear();
@@ -84,6 +96,7 @@ namespace ABC_Car_Traders
             txtPrice.Clear();
         }
 
+        // Menu strip events to navigate between different forms
         private void txtMenuStripManageCarDetails_Click(object sender, EventArgs e)
         {
             ManageCarDetails carDetailsForm = new ManageCarDetails();

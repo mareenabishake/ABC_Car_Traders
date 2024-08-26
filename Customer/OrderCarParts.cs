@@ -14,14 +14,14 @@ namespace ABC_Car_Traders
             LoadCarPartDetails();
         }
 
+        // Load car part details into the DataGridView
         private void LoadCarPartDetails()
         {
-            // Load all car part details into the DataGridView
             CarPart carPart = new CarPart();
             dgvPartDetails.DataSource = carPart.GetAllCarPartDetails();
         }
 
-
+        // Clears input fields
         private void ClearFields()
         {
             txtCustomerID.Clear();
@@ -29,6 +29,7 @@ namespace ABC_Car_Traders
             txtQuantity.Clear();
         }
 
+        // Loads selected car part details into input fields
         private void dgvCarPartDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -38,6 +39,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Places a new car part order
         private void btnOrderCarPart_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtCustomerID.Text) || string.IsNullOrEmpty(txtPartID.Text) || string.IsNullOrEmpty(txtQuantity.Text))
@@ -56,6 +58,7 @@ namespace ABC_Car_Traders
             ClearFields();
         }
 
+        // Menu strip navigation methods
         private void txtMenuStripSearchCarDetails_Click(object sender, EventArgs e)
         {
             SearchCarDetails searchCarDetailsForm = new SearchCarDetails();

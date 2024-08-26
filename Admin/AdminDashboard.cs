@@ -17,6 +17,7 @@ namespace ABC_Car_Traders
             InitializeComponent();
         }
 
+        // Opens ManageCarDetails form and hides AdminDashboard
         private void btnManageCarDetails_Click(object sender, EventArgs e)
         {
             ManageCarDetails carDetailsForm = new ManageCarDetails();
@@ -24,6 +25,7 @@ namespace ABC_Car_Traders
             this.Hide();
         }
 
+        // Opens ManageCarParts form and hides AdminDashboard
         private void btnManageCarParts_Click(object sender, EventArgs e)
         {
             ManageCarParts carPartsForm = new ManageCarParts();
@@ -31,6 +33,7 @@ namespace ABC_Car_Traders
             this.Hide();
         }
 
+        // Opens ManageCustomerDetails form and hides AdminDashboard
         private void btnManageCustomerDetails_Click(object sender, EventArgs e)
         {
             ManageCustomerDetails customerDetailsForm = new ManageCustomerDetails();
@@ -38,6 +41,7 @@ namespace ABC_Car_Traders
             this.Hide();
         }
 
+        // Opens ManageOrders form and hides AdminDashboard
         private void btnManageOrders_Click(object sender, EventArgs e)
         {
             ManageOrders ordersForm = new ManageOrders();
@@ -45,6 +49,7 @@ namespace ABC_Car_Traders
             this.Hide();
         }
 
+        // Opens GenerateReports form and hides AdminDashboard
         private void btnGenerateReports_Click(object sender, EventArgs e)
         {
             GenerateReports reportsForm = new GenerateReports();

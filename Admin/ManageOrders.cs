@@ -6,22 +6,23 @@ namespace ABC_Car_Traders
 {
     public partial class ManageOrders : Form
     {
-        private Order order;
+        private Order order; // Object to manage orders
 
         public ManageOrders()
         {
             InitializeComponent();
-            order = new Order();
-            LoadOrderDetails();
+            order = new Order(); // Initialize Order object
+            LoadOrderDetails(); // Load order details into DataGridView on form load
         }
 
+        // Loads all order details into the DataGridView
         private void LoadOrderDetails()
         {
-            // Load all orders into the DataGridView
             DataTable dt = order.GetAllOrderDetails();
             dgvManageOrders.DataSource = dt;
         }
 
+        // Handles cell click event to load selected order details into input fields
         private void dgvOrders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -36,8 +37,10 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Places a new order
         private void btnPlaceOrder_Click(object sender, EventArgs e)
         {
+            // Validate input fields
             if (string.IsNullOrEmpty(txtCustomerID.Text) ||
                 (string.IsNullOrEmpty(txtCarID.Text) && string.IsNullOrEmpty(txtPartID.Text)))
             {
@@ -50,20 +53,23 @@ namespace ABC_Car_Traders
             int? partID = string.IsNullOrEmpty(txtPartID.Text) ? (int?)null : int.Parse(txtPartID.Text);
             int? quantity = string.IsNullOrEmpty(txtQuantity.Text) ? (int?)null : int.Parse(txtQuantity.Text);
 
-            // If partID is provided, quantity must also be provided
+            // Check if quantity is provided when ordering a part
             if (partID.HasValue && !quantity.HasValue)
             {
                 MessageBox.Show("Quantity is required when ordering a car part.");
                 return;
             }
 
+            // Place the order and refresh the DataGridView
             order.PlaceOrder(customerID, carID, partID, quantity);
             MessageBox.Show("Order placed successfully!");
             LoadOrderDetails();
         }
 
+        // Updates an existing order
         private void btnUpdateOrder_Click(object sender, EventArgs e)
         {
+            // Validate input fields
             if (string.IsNullOrEmpty(txtOrderID.Text) || string.IsNullOrEmpty(txtOrderStatus.Text))
             {
                 MessageBox.Show("Order ID and Order Status are required.");
@@ -73,12 +79,15 @@ namespace ABC_Car_Traders
             int orderID = int.Parse(txtOrderID.Text);
             string orderStatus = txtOrderStatus.Text;
 
+            // Update the order status and refresh the DataGridView
             order.UpdateOrder(orderID, orderStatus);
             LoadOrderDetails();
         }
 
+        // Deletes a selected order
         private void btnDeleteOrder_Click(object sender, EventArgs e)
         {
+            // Validate order selection
             if (string.IsNullOrEmpty(txtOrderID.Text))
             {
                 MessageBox.Show("Order ID is required.");
@@ -86,10 +95,11 @@ namespace ABC_Car_Traders
             }
 
             int orderID = int.Parse(txtOrderID.Text);
-            order.DeleteOrder(orderID);
-            LoadOrderDetails();
+            order.DeleteOrder(orderID); // Delete the order from the database
+            LoadOrderDetails(); // Refresh the DataGridView
         }
 
+        // Menu strip events to navigate between different forms
         private void txtMenuStripManageCarDetails_Click(object sender, EventArgs e)
         {
             ManageCarDetails carDetailsForm = new ManageCarDetails();

@@ -14,11 +14,13 @@ namespace ABC_Car_Traders
             LoadAllCarDetails();
         }
 
+        // Load all car details into the DataGridView
         private void LoadAllCarDetails()
         {
             dgvCarDetails.DataSource = car.GetAllCarDetails();
         }
 
+        // Search for car details based on CarID input
         private void btnSearch_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtCarID.Text))
@@ -32,6 +34,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Menu strip navigation methods
         private void txtMenuStripSearchCarDetails_Click(object sender, EventArgs e)
         {
             SearchCarDetails searchCarDetailsForm = new SearchCarDetails();

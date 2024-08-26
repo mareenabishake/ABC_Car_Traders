@@ -46,7 +46,6 @@ namespace ABC_Car_Traders
 
         private void linkBackToLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            
             this.Close();
         }
     }

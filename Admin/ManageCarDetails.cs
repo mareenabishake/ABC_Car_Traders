@@ -5,22 +5,25 @@ namespace ABC_Car_Traders
 {
     public partial class ManageCarDetails : Form
     {
-        private Car car;
+        private Car car; // Car object to manage car details
 
         public ManageCarDetails()
         {
             InitializeComponent();
-            car = new Car();
-            LoadCarDetails();
+            car = new Car(); // Initialize Car object
+            LoadCarDetails(); // Load car details into DataGridView
         }
 
+        // Loads car details into the DataGridView
         private void LoadCarDetails()
         {
             dgvCarDetails.DataSource = car.GetAllCarDetails();
         }
 
+        // Adds a new car
         private void btnAddCar_Click(object sender, EventArgs e)
         {
+            // Validate input fields
             if (string.IsNullOrEmpty(txtMake.Text) || string.IsNullOrEmpty(txtModel.Text) ||
                 string.IsNullOrEmpty(txtYear.Text) || string.IsNullOrEmpty(txtPrice.Text))
             {
@@ -31,13 +34,16 @@ namespace ABC_Car_Traders
             int year = int.Parse(txtYear.Text);
             decimal price = decimal.Parse(txtPrice.Text);
 
+            // Add car to the database
             car.AddCar(txtMake.Text, txtModel.Text, year, price);
-            ClearFields();
-            LoadCarDetails();
+            ClearFields(); // Clear input fields
+            LoadCarDetails(); // Refresh DataGridView
         }
 
+        // Edits an existing car
         private void btnEditCar_Click(object sender, EventArgs e)
         {
+            // Validate car selection
             if (string.IsNullOrEmpty(txtCarID.Text))
             {
                 MessageBox.Show("Please select a car to edit.");
@@ -48,13 +54,16 @@ namespace ABC_Car_Traders
             int year = int.Parse(txtYear.Text);
             decimal price = decimal.Parse(txtPrice.Text);
 
+            // Edit car details in the database
             car.EditCar(carID, txtMake.Text, txtModel.Text, year, price);
-            ClearFields();
-            LoadCarDetails();
+            ClearFields(); // Clear input fields
+            LoadCarDetails(); // Refresh DataGridView
         }
 
+        // Deletes a selected car
         private void btnDeleteCar_Click(object sender, EventArgs e)
         {
+            // Validate car selection
             if (string.IsNullOrEmpty(txtCarID.Text))
             {
                 MessageBox.Show("Please select a car to delete.");
@@ -62,11 +71,12 @@ namespace ABC_Car_Traders
             }
 
             int carID = int.Parse(txtCarID.Text);
-            car.DeleteCar(carID);
-            ClearFields();
-            LoadCarDetails();
+            car.DeleteCar(carID); // Delete car from the database
+            ClearFields(); // Clear input fields
+            LoadCarDetails(); // Refresh DataGridView
         }
 
+        // Handles cell click event to load selected car details into input fields
         private void dgvCarDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -80,6 +90,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Clears input fields
         private void ClearFields()
         {
             txtCarID.Clear();
@@ -89,6 +100,7 @@ namespace ABC_Car_Traders
             txtPrice.Clear();
         }
 
+        // Menu strip events to navigate between different forms
         private void txtMenuStripManageCarDetails_Click(object sender, EventArgs e)
         {
             ManageCarDetails carDetailsForm = new ManageCarDetails();
