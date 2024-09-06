@@ -17,7 +17,7 @@ namespace ABC_Car_Traders
             InitializeComponent();
         }
 
-        // Opens the SearchCarDetails form
+        // Opens the SearchCarDetails.
         private void btnSearchCarDetails_Click(object sender, EventArgs e)
         {
             SearchCarDetails searchCarDetailsForm = new SearchCarDetails();
