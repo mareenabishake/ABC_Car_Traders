@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageCarDetails));
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblCarID = new System.Windows.Forms.Label();
             this.lblMake = new System.Windows.Forms.Label();
@@ -52,7 +51,8 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(205, 49);
+            this.lblTitle.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblTitle.Location = new System.Drawing.Point(173, 51);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(222, 26);
             this.lblTitle.TabIndex = 0;
@@ -63,7 +63,8 @@
             this.lblCarID.AutoSize = true;
             this.lblCarID.BackColor = System.Drawing.Color.Transparent;
             this.lblCarID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCarID.Location = new System.Drawing.Point(140, 106);
+            this.lblCarID.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblCarID.Location = new System.Drawing.Point(78, 110);
             this.lblCarID.Name = "lblCarID";
             this.lblCarID.Size = new System.Drawing.Size(55, 20);
             this.lblCarID.TabIndex = 2;
@@ -74,7 +75,8 @@
             this.lblMake.AutoSize = true;
             this.lblMake.BackColor = System.Drawing.Color.Transparent;
             this.lblMake.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMake.Location = new System.Drawing.Point(140, 138);
+            this.lblMake.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblMake.Location = new System.Drawing.Point(78, 149);
             this.lblMake.Name = "lblMake";
             this.lblMake.Size = new System.Drawing.Size(48, 20);
             this.lblMake.TabIndex = 3;
@@ -85,7 +87,8 @@
             this.lblPrice.AutoSize = true;
             this.lblPrice.BackColor = System.Drawing.Color.Transparent;
             this.lblPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrice.Location = new System.Drawing.Point(144, 242);
+            this.lblPrice.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblPrice.Location = new System.Drawing.Point(82, 192);
             this.lblPrice.Name = "lblPrice";
             this.lblPrice.Size = new System.Drawing.Size(44, 20);
             this.lblPrice.TabIndex = 4;
@@ -96,7 +99,8 @@
             this.lblYear.AutoSize = true;
             this.lblYear.BackColor = System.Drawing.Color.Transparent;
             this.lblYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYear.Location = new System.Drawing.Point(140, 208);
+            this.lblYear.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblYear.Location = new System.Drawing.Point(292, 149);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(43, 20);
             this.lblYear.TabIndex = 5;
@@ -107,7 +111,8 @@
             this.lblModel.AutoSize = true;
             this.lblModel.BackColor = System.Drawing.Color.Transparent;
             this.lblModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblModel.Location = new System.Drawing.Point(140, 174);
+            this.lblModel.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblModel.Location = new System.Drawing.Point(292, 108);
             this.lblModel.Name = "lblModel";
             this.lblModel.Size = new System.Drawing.Size(52, 20);
             this.lblModel.TabIndex = 6;
@@ -118,7 +123,7 @@
             this.btnAddCar.BackColor = System.Drawing.Color.LightGreen;
             this.btnAddCar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAddCar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddCar.Location = new System.Drawing.Point(390, 123);
+            this.btnAddCar.Location = new System.Drawing.Point(69, 252);
             this.btnAddCar.Name = "btnAddCar";
             this.btnAddCar.Size = new System.Drawing.Size(100, 29);
             this.btnAddCar.TabIndex = 7;
@@ -131,7 +136,7 @@
             this.btnEditCar.BackColor = System.Drawing.Color.SkyBlue;
             this.btnEditCar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEditCar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditCar.Location = new System.Drawing.Point(390, 170);
+            this.btnEditCar.Location = new System.Drawing.Point(238, 252);
             this.btnEditCar.Name = "btnEditCar";
             this.btnEditCar.Size = new System.Drawing.Size(100, 29);
             this.btnEditCar.TabIndex = 8;
@@ -145,7 +150,7 @@
             this.btnDeleteCar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDeleteCar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteCar.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteCar.Location = new System.Drawing.Point(390, 213);
+            this.btnDeleteCar.Location = new System.Drawing.Point(402, 252);
             this.btnDeleteCar.Name = "btnDeleteCar";
             this.btnDeleteCar.Size = new System.Drawing.Size(100, 29);
             this.btnDeleteCar.TabIndex = 9;
@@ -156,7 +161,7 @@
             // txtCarID
             // 
             this.txtCarID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCarID.Location = new System.Drawing.Point(201, 103);
+            this.txtCarID.Location = new System.Drawing.Point(139, 107);
             this.txtCarID.Name = "txtCarID";
             this.txtCarID.Size = new System.Drawing.Size(125, 26);
             this.txtCarID.TabIndex = 11;
@@ -164,7 +169,7 @@
             // txtPrice
             // 
             this.txtPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrice.Location = new System.Drawing.Point(201, 239);
+            this.txtPrice.Location = new System.Drawing.Point(139, 189);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(125, 26);
             this.txtPrice.TabIndex = 13;
@@ -172,7 +177,7 @@
             // txtYear
             // 
             this.txtYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtYear.Location = new System.Drawing.Point(201, 205);
+            this.txtYear.Location = new System.Drawing.Point(353, 146);
             this.txtYear.Name = "txtYear";
             this.txtYear.Size = new System.Drawing.Size(125, 26);
             this.txtYear.TabIndex = 14;
@@ -180,7 +185,7 @@
             // txtModel
             // 
             this.txtModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtModel.Location = new System.Drawing.Point(201, 171);
+            this.txtModel.Location = new System.Drawing.Point(353, 105);
             this.txtModel.Name = "txtModel";
             this.txtModel.Size = new System.Drawing.Size(125, 26);
             this.txtModel.TabIndex = 15;
@@ -188,7 +193,7 @@
             // txtMake
             // 
             this.txtMake.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMake.Location = new System.Drawing.Point(201, 135);
+            this.txtMake.Location = new System.Drawing.Point(139, 146);
             this.txtMake.Name = "txtMake";
             this.txtMake.Size = new System.Drawing.Size(125, 26);
             this.txtMake.TabIndex = 16;
@@ -208,7 +213,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::ABC_Car_Traders.Properties.Resources.istockphoto_1209030907_612x612;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 561);
             this.Controls.Add(this.dgvCarDetails);

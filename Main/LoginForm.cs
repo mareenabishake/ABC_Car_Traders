@@ -36,8 +36,8 @@ namespace ABC_Car_Traders
             if (user.Login(username, password))
             {
                 mainForm = new MainForm(user.UserType, user);
-                this.Hide();
                 mainForm.Show();
+                this.Hide();
             }
             else
             {
@@ -53,6 +53,15 @@ namespace ABC_Car_Traders
             registrationForm.FormClosing += delegate { this.Show(); };
             registrationForm.Show();
             this.Hide();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to exit the application?", "Exit Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
     }
 }

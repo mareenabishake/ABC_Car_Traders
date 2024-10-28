@@ -38,8 +38,11 @@ namespace ABC_Car_Traders
             if (isRegistered)
             {
                 MessageBox.Show("Registration successful!");
-                Show(new LoginForm());
-                this.Hide();
+                LoginForm loginForm = new LoginForm();
+                loginForm.Location = this.Location;
+                loginForm.StartPosition = FormStartPosition.Manual;
+                loginForm.Show();
+                this.Close();
             }
             else
             {

@@ -83,5 +83,10 @@ namespace ABC_Car_Traders
             txtDescription.Clear();
             txtPrice.Clear();
         }
+
+        private void dgvCarParts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

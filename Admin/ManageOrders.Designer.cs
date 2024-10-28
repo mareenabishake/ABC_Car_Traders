@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageOrders));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,7 +53,8 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(205, 23);
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
+            this.label1.Location = new System.Drawing.Point(205, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(175, 26);
             this.label1.TabIndex = 0;
@@ -65,7 +65,8 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(100, 92);
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label2.Location = new System.Drawing.Point(21, 115);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 20);
             this.label2.TabIndex = 1;
@@ -76,7 +77,8 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(100, 187);
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label3.Location = new System.Drawing.Point(334, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 20);
             this.label3.TabIndex = 2;
@@ -87,7 +89,8 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(100, 155);
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label4.Location = new System.Drawing.Point(334, 111);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 20);
             this.label4.TabIndex = 3;
@@ -98,7 +101,8 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(100, 121);
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label5.Location = new System.Drawing.Point(21, 149);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(99, 20);
             this.label5.TabIndex = 4;
@@ -107,7 +111,7 @@
             // txtOrderID
             // 
             this.txtOrderID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOrderID.Location = new System.Drawing.Point(209, 88);
+            this.txtOrderID.Location = new System.Drawing.Point(130, 111);
             this.txtOrderID.Name = "txtOrderID";
             this.txtOrderID.Size = new System.Drawing.Size(161, 26);
             this.txtOrderID.TabIndex = 5;
@@ -115,7 +119,7 @@
             // txtOrderStatus
             // 
             this.txtOrderStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOrderStatus.Location = new System.Drawing.Point(209, 248);
+            this.txtOrderStatus.Location = new System.Drawing.Point(402, 182);
             this.txtOrderStatus.Name = "txtOrderStatus";
             this.txtOrderStatus.Size = new System.Drawing.Size(161, 26);
             this.txtOrderStatus.TabIndex = 6;
@@ -123,7 +127,7 @@
             // txtPartID
             // 
             this.txtPartID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPartID.Location = new System.Drawing.Point(209, 184);
+            this.txtPartID.Location = new System.Drawing.Point(402, 145);
             this.txtPartID.Name = "txtPartID";
             this.txtPartID.Size = new System.Drawing.Size(161, 26);
             this.txtPartID.TabIndex = 7;
@@ -131,7 +135,7 @@
             // txtCarID
             // 
             this.txtCarID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCarID.Location = new System.Drawing.Point(209, 152);
+            this.txtCarID.Location = new System.Drawing.Point(402, 108);
             this.txtCarID.Name = "txtCarID";
             this.txtCarID.Size = new System.Drawing.Size(161, 26);
             this.txtCarID.TabIndex = 8;
@@ -139,7 +143,7 @@
             // txtCustomerID
             // 
             this.txtCustomerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCustomerID.Location = new System.Drawing.Point(209, 120);
+            this.txtCustomerID.Location = new System.Drawing.Point(130, 148);
             this.txtCustomerID.Name = "txtCustomerID";
             this.txtCustomerID.Size = new System.Drawing.Size(161, 26);
             this.txtCustomerID.TabIndex = 9;
@@ -149,7 +153,8 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(99, 251);
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label6.Location = new System.Drawing.Point(300, 185);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 20);
             this.label6.TabIndex = 10;
@@ -160,7 +165,7 @@
             this.btnPlaceOrder.BackColor = System.Drawing.Color.LightGreen;
             this.btnPlaceOrder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPlaceOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlaceOrder.Location = new System.Drawing.Point(420, 125);
+            this.btnPlaceOrder.Location = new System.Drawing.Point(99, 258);
             this.btnPlaceOrder.Name = "btnPlaceOrder";
             this.btnPlaceOrder.Size = new System.Drawing.Size(114, 35);
             this.btnPlaceOrder.TabIndex = 11;
@@ -173,9 +178,9 @@
             this.btnUpdateOrder.BackColor = System.Drawing.Color.SkyBlue;
             this.btnUpdateOrder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUpdateOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateOrder.Location = new System.Drawing.Point(420, 166);
+            this.btnUpdateOrder.Location = new System.Drawing.Point(231, 258);
             this.btnUpdateOrder.Name = "btnUpdateOrder";
-            this.btnUpdateOrder.Size = new System.Drawing.Size(114, 31);
+            this.btnUpdateOrder.Size = new System.Drawing.Size(114, 35);
             this.btnUpdateOrder.TabIndex = 12;
             this.btnUpdateOrder.Text = "Update Order\r\n";
             this.btnUpdateOrder.UseVisualStyleBackColor = false;
@@ -184,7 +189,7 @@
             // dgvManageOrders
             // 
             this.dgvManageOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvManageOrders.Location = new System.Drawing.Point(12, 311);
+            this.dgvManageOrders.Location = new System.Drawing.Point(12, 317);
             this.dgvManageOrders.Name = "dgvManageOrders";
             this.dgvManageOrders.Size = new System.Drawing.Size(560, 204);
             this.dgvManageOrders.TabIndex = 14;
@@ -196,9 +201,9 @@
             this.btnDeleteOrder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDeleteOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteOrder.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteOrder.Location = new System.Drawing.Point(420, 206);
+            this.btnDeleteOrder.Location = new System.Drawing.Point(362, 258);
             this.btnDeleteOrder.Name = "btnDeleteOrder";
-            this.btnDeleteOrder.Size = new System.Drawing.Size(114, 37);
+            this.btnDeleteOrder.Size = new System.Drawing.Size(114, 35);
             this.btnDeleteOrder.TabIndex = 15;
             this.btnDeleteOrder.Text = "Delete Order";
             this.btnDeleteOrder.UseVisualStyleBackColor = false;
@@ -207,7 +212,7 @@
             // txtQuantity
             // 
             this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQuantity.Location = new System.Drawing.Point(209, 216);
+            this.txtQuantity.Location = new System.Drawing.Point(130, 185);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(161, 26);
             this.txtQuantity.TabIndex = 16;
@@ -217,7 +222,8 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(100, 219);
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label7.Location = new System.Drawing.Point(21, 188);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(68, 20);
             this.label7.TabIndex = 17;
@@ -227,7 +233,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::ABC_Car_Traders.Properties.Resources.istockphoto_1209030907_612x612;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 561);
             this.Controls.Add(this.label7);
@@ -249,6 +255,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ManageOrders";
             this.Text = "ManageOrders";
+            this.Load += new System.EventHandler(this.ManageOrders_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvManageOrders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

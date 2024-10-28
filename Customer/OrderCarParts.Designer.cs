@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderCarParts));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPartID = new System.Windows.Forms.TextBox();
@@ -46,6 +45,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(191, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(180, 26);
@@ -57,7 +57,8 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(129, 128);
+            this.label2.ForeColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(65, 149);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 20);
             this.label2.TabIndex = 1;
@@ -66,7 +67,7 @@
             // txtPartID
             // 
             this.txtPartID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPartID.Location = new System.Drawing.Point(205, 125);
+            this.txtPartID.Location = new System.Drawing.Point(141, 146);
             this.txtPartID.Name = "txtPartID";
             this.txtPartID.Size = new System.Drawing.Size(166, 26);
             this.txtPartID.TabIndex = 2;
@@ -76,7 +77,8 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(129, 160);
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Location = new System.Drawing.Point(311, 110);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 20);
             this.label3.TabIndex = 3;
@@ -85,7 +87,7 @@
             // txtQuantity
             // 
             this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQuantity.Location = new System.Drawing.Point(205, 157);
+            this.txtQuantity.Location = new System.Drawing.Point(381, 107);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(166, 26);
             this.txtQuantity.TabIndex = 4;
@@ -95,11 +97,11 @@
             this.btnOrderCarPart.BackColor = System.Drawing.Color.LightGreen;
             this.btnOrderCarPart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnOrderCarPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrderCarPart.Location = new System.Drawing.Point(399, 114);
+            this.btnOrderCarPart.Location = new System.Drawing.Point(223, 192);
             this.btnOrderCarPart.Name = "btnOrderCarPart";
-            this.btnOrderCarPart.Size = new System.Drawing.Size(92, 49);
+            this.btnOrderCarPart.Size = new System.Drawing.Size(128, 32);
             this.btnOrderCarPart.TabIndex = 5;
-            this.btnOrderCarPart.Text = "Order \r\nCar Part";
+            this.btnOrderCarPart.Text = "Order Car Part";
             this.btnOrderCarPart.UseVisualStyleBackColor = false;
             this.btnOrderCarPart.Click += new System.EventHandler(this.btnOrderCarPart_Click);
             // 
@@ -108,7 +110,8 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(100, 96);
+            this.label4.ForeColor = System.Drawing.SystemColors.Control;
+            this.label4.Location = new System.Drawing.Point(36, 110);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 20);
             this.label4.TabIndex = 7;
@@ -117,7 +120,7 @@
             // txtCustomerID
             // 
             this.txtCustomerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCustomerID.Location = new System.Drawing.Point(205, 93);
+            this.txtCustomerID.Location = new System.Drawing.Point(141, 107);
             this.txtCustomerID.Name = "txtCustomerID";
             this.txtCustomerID.Size = new System.Drawing.Size(166, 26);
             this.txtCustomerID.TabIndex = 8;
@@ -127,7 +130,7 @@
             this.dgvPartDetails.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPartDetails.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvPartDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPartDetails.Location = new System.Drawing.Point(12, 207);
+            this.dgvPartDetails.Location = new System.Drawing.Point(6, 243);
             this.dgvPartDetails.Name = "dgvPartDetails";
             this.dgvPartDetails.Size = new System.Drawing.Size(566, 189);
             this.dgvPartDetails.TabIndex = 9;
@@ -137,9 +140,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::ABC_Car_Traders.Properties.Resources.istockphoto_1209030907_612x612;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(590, 410);
+            this.ClientSize = new System.Drawing.Size(584, 561);
             this.Controls.Add(this.dgvPartDetails);
             this.Controls.Add(this.txtCustomerID);
             this.Controls.Add(this.label4);

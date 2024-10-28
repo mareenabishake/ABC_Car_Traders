@@ -201,9 +201,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="Resources\360_F_210459536_XmLDEcKq2DpeNLVmheuWeu9NM9aGKnih.jpg" />
+    <None Include="Resources\istockphoto-1209030907-612x612.jpg" />
+    <Content Include="Resources\Login.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

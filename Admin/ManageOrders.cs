@@ -89,5 +89,10 @@ namespace ABC_Car_Traders
             order.DeleteOrder(orderID);
             LoadOrderDetails();
         }
+
+        private void ManageOrders_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

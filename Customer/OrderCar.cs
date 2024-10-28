@@ -51,5 +51,10 @@ namespace ABC_Car_Traders
                 txtCarID.Text = row.Cells["CarID"].Value.ToString();
             }
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

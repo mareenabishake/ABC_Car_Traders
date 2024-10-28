@@ -44,7 +44,6 @@
             this.splitContainer1.SuspendLayout();
             this.menuPanel.SuspendLayout();
             this.contentPanel.SuspendLayout();
-            this.panelWidgets.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -80,9 +79,9 @@
             // menuItemsPanel
             // 
             this.menuItemsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.menuItemsPanel.Location = new System.Drawing.Point(0, 40);
+            this.menuItemsPanel.Location = new System.Drawing.Point(0, 103);
             this.menuItemsPanel.Name = "menuItemsPanel";
-            this.menuItemsPanel.Size = new System.Drawing.Size(200, 480);
+            this.menuItemsPanel.Size = new System.Drawing.Size(200, 417);
             this.menuItemsPanel.TabIndex = 3;
             // 
             // btnExit
@@ -124,13 +123,14 @@
             this.lblDashboard.ForeColor = System.Drawing.Color.White;
             this.lblDashboard.Location = new System.Drawing.Point(0, 0);
             this.lblDashboard.Name = "lblDashboard";
-            this.lblDashboard.Size = new System.Drawing.Size(200, 40);
+            this.lblDashboard.Size = new System.Drawing.Size(200, 103);
             this.lblDashboard.TabIndex = 0;
             this.lblDashboard.Text = "Dashboard";
             this.lblDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // contentPanel
             // 
+            this.contentPanel.BackgroundImage = global::ABC_Car_Traders.Properties.Resources.istockphoto_1209030907_612x612;
             this.contentPanel.Controls.Add(this.lblGreeting);
             this.contentPanel.Controls.Add(this.lblDateTime);
             this.contentPanel.Controls.Add(this.panelWidgets);
@@ -144,30 +144,35 @@
             // lblGreeting
             // 
             this.lblGreeting.AutoSize = true;
+            this.lblGreeting.BackColor = System.Drawing.Color.Transparent;
             this.lblGreeting.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGreeting.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblGreeting.Location = new System.Drawing.Point(20, 20);
             this.lblGreeting.Name = "lblGreeting";
-            this.lblGreeting.Size = new System.Drawing.Size(200, 29);
+            this.lblGreeting.Size = new System.Drawing.Size(191, 29);
             this.lblGreeting.TabIndex = 0;
             this.lblGreeting.Text = "Welcome, User!";
             // 
             // lblDateTime
             // 
             this.lblDateTime.AutoSize = true;
+            this.lblDateTime.BackColor = System.Drawing.Color.Transparent;
             this.lblDateTime.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDateTime.ForeColor = System.Drawing.SystemColors.Control;
             this.lblDateTime.Location = new System.Drawing.Point(22, 60);
             this.lblDateTime.Name = "lblDateTime";
-            this.lblDateTime.Size = new System.Drawing.Size(150, 18);
+            this.lblDateTime.Size = new System.Drawing.Size(139, 18);
             this.lblDateTime.TabIndex = 1;
             this.lblDateTime.Text = "Current Date & Time";
             // 
             // panelWidgets
             // 
+            this.panelWidgets.AutoScroll = true;
+            this.panelWidgets.BackColor = System.Drawing.Color.Transparent;
             this.panelWidgets.Location = new System.Drawing.Point(20, 100);
             this.panelWidgets.Name = "panelWidgets";
             this.panelWidgets.Size = new System.Drawing.Size(556, 480);
             this.panelWidgets.TabIndex = 2;
-            this.panelWidgets.AutoScroll = true;
             // 
             // MainForm
             // 
@@ -185,7 +190,6 @@
             this.menuPanel.ResumeLayout(false);
             this.contentPanel.ResumeLayout(false);
             this.contentPanel.PerformLayout();
-            this.panelWidgets.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
