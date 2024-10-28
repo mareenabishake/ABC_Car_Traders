@@ -46,9 +46,12 @@ namespace ABC_Car_Traders
                 // Verify inventory availability
                 if (carID.HasValue)
                 {
-                    string checkCarQuery = "SELECT COUNT(*) FROM Cars WHERE CarID = @CarID";
-                    SqlParameter[] carParams = new SqlParameter[] { new SqlParameter("@CarID", carID.Value) };
-                    int carExists = Convert.ToInt32(dbHelper.ExecuteScalar(checkCarQuery, carParams));
+                    string checkCarQuery = "SELECT COUNT(*) as Count FROM Cars WHERE CarID = @CarID";
+                    SqlParameter[] carParams = new SqlParameter[] {
+                        new SqlParameter("@CarID", carID.Value)
+                    };
+                    DataTable carResult = dbHelper.ExecuteQuery(checkCarQuery, carParams);
+                    int carExists = Convert.ToInt32(carResult.Rows[0]["Count"]);
                     
                     if (carExists == 0)
                         throw new ValidationException("Specified car is not available.");
@@ -56,8 +59,15 @@ namespace ABC_Car_Traders
 
                 if (partID.HasValue)
                 {
-                    // Add similar check for parts availability
-                    // ... part validation code ...
+                    string checkPartQuery = "SELECT COUNT(*) as Count FROM CarParts WHERE PartID = @PartID";
+                    SqlParameter[] partParams = new SqlParameter[] {
+                        new SqlParameter("@PartID", partID.Value)
+                    };
+                    DataTable partResult = dbHelper.ExecuteQuery(checkPartQuery, partParams);
+                    int partExists = Convert.ToInt32(partResult.Rows[0]["Count"]);
+                    
+                    if (partExists == 0)
+                        throw new ValidationException("Specified part is not available.");
                 }
 
                 string query = "INSERT INTO Orders (CustomerID, CarID, PartID, Quantity, OrderStatus) " +
@@ -75,11 +85,11 @@ namespace ABC_Car_Traders
             }
             catch (ValidationException ex)
             {
-                MessageBox.Show(ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                throw;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Order placement failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception($"Error placing order: {ex.Message}", ex);
             }
         }
 

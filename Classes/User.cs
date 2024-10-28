@@ -51,27 +51,30 @@ namespace ABC_Car_Traders
             {
                 ValidateUserData(username, password, name, email, phone);
 
-                // Check if username already exists
-                string checkQuery = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
-                SqlParameter[] checkParams = new SqlParameter[] { new SqlParameter("@Username", username) };
-                int existingCount = Convert.ToInt32(dbHelper.ExecuteScalar(checkQuery, checkParams));
+                // Check if username exists using ExecuteQuery
+                string checkQuery = "SELECT COUNT(*) as Count FROM Users WHERE Username = @Username";
+                SqlParameter[] checkParams = new SqlParameter[] {
+                    new SqlParameter("@Username", username)
+                };
+                
+                DataTable result = dbHelper.ExecuteQuery(checkQuery, checkParams);
+                int existingCount = Convert.ToInt32(result.Rows[0]["Count"]);
                 
                 if (existingCount > 0)
                     throw new ValidationException("Username already exists.");
 
-                string query = "INSERT INTO Users (Username, Password, Name, Email, Phone, Address, UserType) " +
-                               "VALUES (@Username, @Password, @Name, @Email, @Phone, @Address, 'Customer')";
-                SqlParameter[] parameters = new SqlParameter[]
-                {
-            new SqlParameter("@Username", username),
-            new SqlParameter("@Password", password),
-            new SqlParameter("@Name", name),
-            new SqlParameter("@Email", email),
-            new SqlParameter("@Phone", phone),
-            new SqlParameter("@Address", address)
+                string insertQuery = "INSERT INTO Users (Username, Password, Name, Email, Phone, Address, UserType) " +
+                                   "VALUES (@Username, @Password, @Name, @Email, @Phone, @Address, 'Customer')";
+                SqlParameter[] parameters = new SqlParameter[] {
+                    new SqlParameter("@Username", username),
+                    new SqlParameter("@Password", password),
+                    new SqlParameter("@Name", name),
+                    new SqlParameter("@Email", email),
+                    new SqlParameter("@Phone", phone),
+                    new SqlParameter("@Address", address)
                 };
 
-                dbHelper.ExecuteNonQuery(query, parameters);
+                dbHelper.ExecuteNonQuery(insertQuery, parameters);
                 return true;
             }
             catch (ValidationException ex)

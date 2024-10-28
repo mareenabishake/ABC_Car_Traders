@@ -39,10 +39,14 @@ namespace ABC_Car_Traders
             {
                 ValidatePartData(name, description, price);
 
-                // Check if part with same name exists
-                string checkQuery = "SELECT COUNT(*) FROM CarParts WHERE Name = @Name";
-                SqlParameter[] checkParams = new SqlParameter[] { new SqlParameter("@Name", name) };
-                int existingCount = Convert.ToInt32(dbHelper.ExecuteScalar(checkQuery, checkParams));
+                // Check if part exists using ExecuteQuery
+                string checkQuery = "SELECT COUNT(*) as Count FROM CarParts WHERE Name = @Name";
+                SqlParameter[] checkParams = new SqlParameter[] {
+                    new SqlParameter("@Name", name)
+                };
+                
+                DataTable result = dbHelper.ExecuteQuery(checkQuery, checkParams);
+                int existingCount = Convert.ToInt32(result.Rows[0]["Count"]);
                 
                 if (existingCount > 0)
                     throw new ValidationException("A part with this name already exists.");

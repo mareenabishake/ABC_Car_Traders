@@ -248,7 +248,75 @@ namespace ABC_Car_Traders.Main
             }
         }
 
-        // Creates and configures individual dashboard widgets
+        private void InitializeAdminWidgets()
+        {
+            try
+            {
+                string totalCarsQuery = "SELECT COUNT(*) FROM Cars";
+                string totalCustomersQuery = "SELECT COUNT(*) FROM Users WHERE UserType = 'Customer'";
+                string completedOrdersQuery = "SELECT COUNT(*) FROM Orders WHERE OrderStatus = 'Shipped'";
+                string dueOrdersQuery = "SELECT COUNT(*) FROM Orders WHERE OrderStatus = 'Pending'";
+
+                int totalCars = GetScalarValue(totalCarsQuery);
+                int totalCustomers = GetScalarValue(totalCustomersQuery);
+                int completedOrders = GetScalarValue(completedOrdersQuery);
+                int dueOrders = GetScalarValue(dueOrdersQuery);
+
+                AddWidget("Total Cars", totalCars.ToString());
+                AddWidget("Total Customers", totalCustomers.ToString());
+                AddWidget("Completed Orders", completedOrders.ToString());
+                AddWidget("Due Orders", dueOrders.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while loading the dashboard. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void InitializeCustomerWidgets()
+        {
+            try
+            {
+                string totalCarsQuery = "SELECT COUNT(*) FROM Cars";
+                string totalPartsQuery = "SELECT COUNT(*) FROM CarParts";
+                string customerOrdersQuery = $"SELECT COUNT(*) FROM Orders WHERE CustomerID = {_currentUser.UserID}";
+                string pendingOrdersQuery = $"SELECT COUNT(*) FROM Orders WHERE CustomerID = {_currentUser.UserID} AND OrderStatus = 'Pending'";
+
+                int totalCars = GetScalarValue(totalCarsQuery);
+                int totalParts = GetScalarValue(totalPartsQuery);
+                int customerOrders = GetScalarValue(customerOrdersQuery);
+                int pendingOrders = GetScalarValue(pendingOrdersQuery);
+
+                AddWidget("Available Cars", totalCars.ToString());
+                AddWidget("Available Parts", totalParts.ToString());
+                AddWidget("Your Orders", customerOrders.ToString());
+                AddWidget("Pending Orders", pendingOrders.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while loading the dashboard. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private int GetScalarValue(string query)
+        {
+            try
+            {
+                DataTable dt = dbHelper.ExecuteQuery(query);
+                if (dt.Rows.Count > 0 && dt.Columns.Count > 0)
+                {
+                    return Convert.ToInt32(dt.Rows[0][0]);
+                }
+                Console.WriteLine($"Query returned no results: {query}");
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error executing query: {query}. Error: {ex.Message}");
+                return 0;
+            }
+        }
+
         private void AddWidget(string title, string value)
         {
             Panel widgetPanel = new Panel

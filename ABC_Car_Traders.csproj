@@ -62,6 +62,7 @@
       <DependentUpon>GenerateReports.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Utilities\ReportGenerator.cs" />
+    <Compile Include="Classes\Utilities\ValidationException.cs" />
     <Compile Include="Main\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

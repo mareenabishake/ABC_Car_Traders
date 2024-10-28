@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using ABC_Car_Traders.Classes.Utilities;
 
 namespace ABC_Car_Traders
 {
@@ -45,30 +44,30 @@ namespace ABC_Car_Traders
             {
                 ValidateCarData(make, model, year, price);
 
-                // Check if identical car exists
-                string checkQuery = "SELECT COUNT(*) FROM Cars WHERE Make = @Make AND Model = @Model AND Year = @Year";
+                // Check if identical car exists using ExecuteQuery instead of ExecuteScalar
+                string checkQuery = "SELECT COUNT(*) as Count FROM Cars WHERE Make = @Make AND Model = @Model AND Year = @Year";
                 SqlParameter[] checkParams = new SqlParameter[] {
                     new SqlParameter("@Make", make),
                     new SqlParameter("@Model", model),
                     new SqlParameter("@Year", year)
                 };
-                int existingCount = Convert.ToInt32(dbHelper.ExecuteScalar(checkQuery, checkParams));
+                
+                DataTable result = dbHelper.ExecuteQuery(checkQuery, checkParams);
+                int existingCount = Convert.ToInt32(result.Rows[0]["Count"]);
                 
                 if (existingCount > 0)
                     throw new ValidationException("This car model already exists in inventory.");
 
-                string query = "INSERT INTO Cars (Make, Model, Year, Price) " +
-                               "VALUES (@Make, @Model, @Year, @Price)";
-                SqlParameter[] parameters = new SqlParameter[]
-                {
+                string insertQuery = "INSERT INTO Cars (Make, Model, Year, Price) VALUES (@Make, @Model, @Year, @Price)";
+                SqlParameter[] parameters = new SqlParameter[] {
                     new SqlParameter("@Make", make),
                     new SqlParameter("@Model", model),
                     new SqlParameter("@Year", year),
                     new SqlParameter("@Price", price)
                 };
 
-                dbHelper.ExecuteNonQuery(query, parameters);
-                MessageBox.Show("Car added successfully!");
+                dbHelper.ExecuteNonQuery(insertQuery, parameters);
+                MessageBox.Show("Car added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (ValidationException ex)
             {
@@ -85,9 +84,10 @@ namespace ABC_Car_Traders
         {
             try
             {
+                ValidateCarData(make, model, year, price);
+
                 string query = "UPDATE Cars SET Make = @Make, Model = @Model, Year = @Year, Price = @Price WHERE CarID = @CarID";
-                SqlParameter[] parameters = new SqlParameter[]
-                {
+                SqlParameter[] parameters = new SqlParameter[] {
                     new SqlParameter("@CarID", carID),
                     new SqlParameter("@Make", make),
                     new SqlParameter("@Model", model),
@@ -96,11 +96,15 @@ namespace ABC_Car_Traders
                 };
 
                 dbHelper.ExecuteNonQuery(query, parameters);
-                MessageBox.Show("Car updated successfully!");
+                MessageBox.Show("Car updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Failed to update car: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -110,17 +114,16 @@ namespace ABC_Car_Traders
             try
             {
                 string query = "DELETE FROM Cars WHERE CarID = @CarID";
-                SqlParameter[] parameters = new SqlParameter[]
-                {
+                SqlParameter[] parameters = new SqlParameter[] {
                     new SqlParameter("@CarID", carID)
                 };
 
                 dbHelper.ExecuteNonQuery(query, parameters);
-                MessageBox.Show("Car deleted successfully!");
+                MessageBox.Show("Car deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Failed to delete car: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -130,8 +133,7 @@ namespace ABC_Car_Traders
             try
             {
                 string query = "SELECT * FROM Cars WHERE CarID = @CarID";
-                SqlParameter[] parameters = new SqlParameter[]
-                {
+                SqlParameter[] parameters = new SqlParameter[] {
                     new SqlParameter("@CarID", carID)
                 };
 
@@ -139,7 +141,7 @@ namespace ABC_Car_Traders
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Failed to retrieve car details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
@@ -153,7 +155,7 @@ namespace ABC_Car_Traders
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Failed to retrieve car details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
