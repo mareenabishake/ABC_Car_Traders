@@ -20,41 +20,58 @@ namespace ABC_Car_Traders
             InitializeComponent();
         }
 
+        // Validates user credentials and initiates login process
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text;
-            string password = txtPassword.Text;
-
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            try
             {
-                MessageBox.Show("Both username and password are required.");
-                return;
+                if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    MessageBox.Show("Both username and password are required.", "Validation Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                User user = new User();
+                if (user.Login(txtUsername.Text, txtPassword.Text))
+                {
+                    mainForm = new MainForm(user.UserType, user);
+                    mainForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid username or password.", "Login Failed", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-
-            User user = new User();
-
-            if (user.Login(username, password))
+            catch (Exception ex)
             {
-                mainForm = new MainForm(user.UserType, user);
-                mainForm.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Invalid username or password.");
+                MessageBox.Show($"Login error: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // Navigates to registration form while preserving form position
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            RegistrationForm registrationForm = new RegistrationForm();
-            registrationForm.Location = this.Location;
-            registrationForm.StartPosition = FormStartPosition.Manual;
-            registrationForm.FormClosing += delegate { this.Show(); };
-            registrationForm.Show();
-            this.Hide();
+            try
+            {
+                RegistrationForm registrationForm = new RegistrationForm();
+                registrationForm.Location = this.Location;
+                registrationForm.StartPosition = FormStartPosition.Manual;
+                registrationForm.FormClosing += delegate { this.Show(); };
+                registrationForm.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening registration form: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        // Handles application exit with confirmation dialog
         private void btnExit_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to exit the application?", "Exit Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

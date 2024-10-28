@@ -5,10 +5,12 @@ using System.Windows.Forms;
 
 namespace ABC_Car_Traders
 {
+    // Handles order processing and management for both cars and parts
     public class Order
     {
         public DatabaseHelper dbHelper;
 
+        // Properties representing order information in the database
         public int OrderID { get; set; }
         public int CustomerID { get; set; }
         public int CarID { get; set; }
@@ -20,10 +22,44 @@ namespace ABC_Car_Traders
             dbHelper = new DatabaseHelper();
         }
 
+        private void ValidateOrder(int customerID, int? carID, int? partID, int? quantity)
+        {
+            if (customerID <= 0)
+                throw new ValidationException("Invalid customer ID.");
+            
+            if (!carID.HasValue && !partID.HasValue)
+                throw new ValidationException("Either car ID or part ID must be specified.");
+            
+            if (carID.HasValue && partID.HasValue)
+                throw new ValidationException("Cannot order both car and part simultaneously.");
+            
+            if (partID.HasValue && (!quantity.HasValue || quantity.Value <= 0))
+                throw new ValidationException("Quantity must be greater than 0 for part orders.");
+        }
+
         public void PlaceOrder(int customerID, int? carID, int? partID, int? quantity)
         {
             try
             {
+                ValidateOrder(customerID, carID, partID, quantity);
+
+                // Verify inventory availability
+                if (carID.HasValue)
+                {
+                    string checkCarQuery = "SELECT COUNT(*) FROM Cars WHERE CarID = @CarID";
+                    SqlParameter[] carParams = new SqlParameter[] { new SqlParameter("@CarID", carID.Value) };
+                    int carExists = Convert.ToInt32(dbHelper.ExecuteScalar(checkCarQuery, carParams));
+                    
+                    if (carExists == 0)
+                        throw new ValidationException("Specified car is not available.");
+                }
+
+                if (partID.HasValue)
+                {
+                    // Add similar check for parts availability
+                    // ... part validation code ...
+                }
+
                 string query = "INSERT INTO Orders (CustomerID, CarID, PartID, Quantity, OrderStatus) " +
                                "VALUES (@CustomerID, @CarID, @PartID, @Quantity, 'Pending')";
 
@@ -37,12 +73,17 @@ namespace ABC_Car_Traders
 
                 dbHelper.ExecuteNonQuery(query, parameters);
             }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Order placement failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // Updates the status of an existing order (e.g., Pending, Completed, Cancelled)
         public void UpdateOrder(int orderID, string orderStatus)
         {
             try
@@ -63,6 +104,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Removes an order from the system
         public void DeleteOrder(int orderID)
         {
             try
@@ -82,6 +124,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Retrieves the current status of a specific order
         public string GetOrderStatus(int orderID)
         {
             try

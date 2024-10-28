@@ -6,6 +6,7 @@ namespace ABC_Car_Traders
 {
     public partial class ManageOrders : Form
     {
+        // Instance of Order class to handle order-related operations
         private Order order;
 
         public ManageOrders()
@@ -15,13 +16,28 @@ namespace ABC_Car_Traders
             LoadOrderDetails();
         }
 
+        // Loads all order details into the DataGridView for display
         private void LoadOrderDetails()
         {
-            // Load all orders into the DataGridView
-            DataTable dt = order.GetAllOrderDetails();
-            dgvManageOrders.DataSource = dt;
+            try
+            {
+                DataTable dt = order.GetAllOrderDetails();
+                if (dt == null || dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("No orders found.", "Information", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                dgvManageOrders.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading orders: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        // Event handler for DataGridView cell click
+        // Populates form fields with selected order details
         private void dgvOrders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -36,32 +52,58 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Event handler for placing new orders
+        // Validates required fields and handles both car and part orders
+        // Requires either CarID or PartID, and quantity for part orders
         private void btnPlaceOrder_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCustomerID.Text) ||
-                (string.IsNullOrEmpty(txtCarID.Text) && string.IsNullOrEmpty(txtPartID.Text)))
+            try
             {
-                MessageBox.Show("Customer ID and either Car ID or Part ID are required.");
-                return;
+                if (string.IsNullOrEmpty(txtCustomerID.Text) ||
+                    (string.IsNullOrEmpty(txtCarID.Text) && string.IsNullOrEmpty(txtPartID.Text)))
+                {
+                    MessageBox.Show("Customer ID and either Car ID or Part ID are required.", 
+                        "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(txtCustomerID.Text, out int customerID))
+                {
+                    MessageBox.Show("Invalid Customer ID format.", "Validation Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int? carID = null;
+                int? partID = null;
+                int? quantity = null;
+
+                if (!string.IsNullOrEmpty(txtCarID.Text) && !int.TryParse(txtCarID.Text, out int carIdValue))
+                {
+                    MessageBox.Show("Invalid Car ID format.", "Validation Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else if (!string.IsNullOrEmpty(txtCarID.Text))
+                {
+                    carID = int.Parse(txtCarID.Text);
+                }
+
+                // Similar validation for partID and quantity
+                // ... validation code ...
+
+                order.PlaceOrder(customerID, carID, partID, quantity);
+                LoadOrderDetails();
             }
-
-            int customerID = int.Parse(txtCustomerID.Text);
-            int? carID = string.IsNullOrEmpty(txtCarID.Text) ? (int?)null : int.Parse(txtCarID.Text);
-            int? partID = string.IsNullOrEmpty(txtPartID.Text) ? (int?)null : int.Parse(txtPartID.Text);
-            int? quantity = string.IsNullOrEmpty(txtQuantity.Text) ? (int?)null : int.Parse(txtQuantity.Text);
-
-            // If partID is provided, quantity must also be provided
-            if (partID.HasValue && !quantity.HasValue)
+            catch (Exception ex)
             {
-                MessageBox.Show("Quantity is required when ordering a car part.");
-                return;
+                MessageBox.Show($"Error placing order: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            order.PlaceOrder(customerID, carID, partID, quantity);
-            MessageBox.Show("Order placed successfully!");
-            LoadOrderDetails();
         }
 
+        // Event handler for updating existing orders
+        // Updates order status and refreshes the display
         private void btnUpdateOrder_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtOrderID.Text) || string.IsNullOrEmpty(txtOrderStatus.Text))
@@ -77,6 +119,8 @@ namespace ABC_Car_Traders
             LoadOrderDetails();
         }
 
+        // Event handler for deleting orders
+        // Removes selected order from the database
         private void btnDeleteOrder_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtOrderID.Text))

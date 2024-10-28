@@ -5,10 +5,12 @@ using System.Windows.Forms;
 
 namespace ABC_Car_Traders
 {
+    // Manages inventory and operations for car parts
     public class CarPart
     {
         private DatabaseHelper dbHelper;
 
+        // Properties representing car part information in the database
         public int PartID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -19,10 +21,32 @@ namespace ABC_Car_Traders
             dbHelper = new DatabaseHelper();
         }
 
+        private void ValidatePartData(string name, string description, decimal price)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ValidationException("Part name is required.");
+                
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ValidationException("Part description is required.");
+                
+            if (price <= 0)
+                throw new ValidationException("Price must be greater than 0.");
+        }
+
         public void AddCarPart(string name, string description, decimal price)
         {
             try
             {
+                ValidatePartData(name, description, price);
+
+                // Check if part with same name exists
+                string checkQuery = "SELECT COUNT(*) FROM CarParts WHERE Name = @Name";
+                SqlParameter[] checkParams = new SqlParameter[] { new SqlParameter("@Name", name) };
+                int existingCount = Convert.ToInt32(dbHelper.ExecuteScalar(checkQuery, checkParams));
+                
+                if (existingCount > 0)
+                    throw new ValidationException("A part with this name already exists.");
+
                 string query = "INSERT INTO CarParts (Name, Description, Price) " +
                                "VALUES (@Name, @Description, @Price)";
                 SqlParameter[] parameters = new SqlParameter[]
@@ -35,9 +59,13 @@ namespace ABC_Car_Traders
                 dbHelper.ExecuteNonQuery(query, parameters);
                 MessageBox.Show("Car part added successfully!");
             }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Failed to add part: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

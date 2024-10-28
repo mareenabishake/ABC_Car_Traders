@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ABC_Car_Traders
 {
+    // Provides centralized database access and operations for the application
     public class DatabaseHelper
     {
         private readonly string connectionString;
@@ -18,41 +19,67 @@ namespace ABC_Car_Traders
             connectionString = "Data Source=EXPERTBOOK\\SQLEXPRESS;Initial Catalog=ABC_Car_Traders;Integrated Security=True;";
         }
 
+        // Executes SQL queries that return data (SELECT statements)
+        // Optional parameters allow for parameterized queries
         public DataTable ExecuteQuery(string query, SqlParameter[] parameters = null)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    if (parameters != null)
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddRange(parameters);
-                    }
+                        if (parameters != null)
+                        {
+                            cmd.Parameters.AddRange(parameters);
+                        }
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
-                        return dt;
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            return dt;
+                        }
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                throw new Exception($"Database error occurred: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while executing the query: {ex.Message}", ex);
+            }
         }
 
+        // Executes SQL commands that modify data (INSERT, UPDATE, DELETE statements)
+        // Optional parameters allow for parameterized queries
         public void ExecuteNonQuery(string query, SqlParameter[] parameters = null)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    if (parameters != null)
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddRange(parameters);
-                    }
+                        if (parameters != null)
+                        {
+                            cmd.Parameters.AddRange(parameters);
+                        }
 
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception($"Database error occurred: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while executing the command: {ex.Message}", ex);
             }
         }
     }

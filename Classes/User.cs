@@ -2,13 +2,16 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace ABC_Car_Traders
 {
+    // Manages user-related operations including authentication, registration, and profile management
     public class User
     {
         private DatabaseHelper dbHelper;
 
+        // Properties representing user information in the database
         public int UserID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -23,10 +26,39 @@ namespace ABC_Car_Traders
             dbHelper = new DatabaseHelper();
         }
 
+        private void ValidateUserData(string username, string password, string name, string email, string phone)
+        {
+            if (string.IsNullOrWhiteSpace(username) || username.Length < 3)
+                throw new ValidationException("Username must be at least 3 characters long.");
+            
+            if (string.IsNullOrWhiteSpace(password) || password.Length < 6)
+                throw new ValidationException("Password must be at least 6 characters long.");
+            
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ValidationException("Name is required.");
+            
+            if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
+                throw new ValidationException("Invalid email format.");
+            
+            if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\d{10}$"))
+                throw new ValidationException("Phone number must be 10 digits.");
+        }
+
+        // Registers a new customer in the system with basic information
         public bool Register(string username, string password, string name, string email, string phone, string address)
         {
             try
             {
+                ValidateUserData(username, password, name, email, phone);
+
+                // Check if username already exists
+                string checkQuery = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
+                SqlParameter[] checkParams = new SqlParameter[] { new SqlParameter("@Username", username) };
+                int existingCount = Convert.ToInt32(dbHelper.ExecuteScalar(checkQuery, checkParams));
+                
+                if (existingCount > 0)
+                    throw new ValidationException("Username already exists.");
+
                 string query = "INSERT INTO Users (Username, Password, Name, Email, Phone, Address, UserType) " +
                                "VALUES (@Username, @Password, @Name, @Email, @Phone, @Address, 'Customer')";
                 SqlParameter[] parameters = new SqlParameter[]
@@ -42,14 +74,20 @@ namespace ABC_Car_Traders
                 dbHelper.ExecuteNonQuery(query, parameters);
                 return true;
             }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Registration failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
 
+        // Authenticates user credentials and loads user data if successful
         public bool Login(string username, string password)
         {
             try
@@ -83,6 +121,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Updates customer information in the database
         public bool EditCustomer(int customerId, string name, string email, string phone, string address)
         {
             try
@@ -107,6 +146,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Removes a customer account from the system
         public bool DeleteCustomer(int customerId)
         {
             try
@@ -128,6 +168,7 @@ namespace ABC_Car_Traders
         }
 
 
+        // Retrieves detailed information for a specific customer
         public DataTable GetCustomerDetails(int customerID)
         {
             try
@@ -147,6 +188,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Retrieves a list of all customers in the system
         public DataTable GetAllCustomerDetails()
         {
             try
@@ -161,6 +203,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Clears current user session data
         public void Logout()
         {
             // Reset all user properties

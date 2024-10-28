@@ -5,6 +5,7 @@ namespace ABC_Car_Traders
 {
     public partial class ManageCarParts : Form
     {
+        // Instance of CarPart class to handle part-related operations
         private CarPart carPart;
 
         public ManageCarParts()
@@ -14,11 +15,14 @@ namespace ABC_Car_Traders
             LoadCarPartDetails();
         }
 
+        // Loads all car part details into the DataGridView
         private void LoadCarPartDetails()
         {
             dgvCarParts.DataSource = carPart.GetAllCarPartDetails();
         }
 
+        // Event handler for adding new car parts
+        // Validates required fields and adds part to inventory
         private void btnAddPart_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtDescription.Text) ||
@@ -34,6 +38,8 @@ namespace ABC_Car_Traders
             LoadCarPartDetails();
         }
 
+        // Event handler for editing existing car parts
+        // Updates part information in the database
         private void btnEditPart_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPartID.Text))
@@ -50,6 +56,8 @@ namespace ABC_Car_Traders
             LoadCarPartDetails();
         }
 
+        // Event handler for deleting car parts
+        // Removes part from inventory system
         private void btnDeletePart_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPartID.Text))
@@ -64,6 +72,8 @@ namespace ABC_Car_Traders
             LoadCarPartDetails();
         }
 
+        // Event handler for DataGridView cell click
+        // Populates form fields with selected part details
         private void dgvCarParts_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -76,6 +86,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Clears all input fields after operations
         private void ClearFields()
         {
             txtPartID.Clear();

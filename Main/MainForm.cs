@@ -35,6 +35,7 @@ namespace ABC_Car_Traders.Main
             InitializeWidgets();
         }
 
+        // Initializes main form with appropriate menu items based on user type
         public void ShowMainPanel(string UserType, User currentUser)
         {
             _currentUser = currentUser;
@@ -43,6 +44,7 @@ namespace ABC_Car_Traders.Main
             AddMenuItems(UserType);
         }
 
+        // Adds menu items based on user role (Admin/Customer)
         private void AddMenuItems(string UserType)
         {
             if (UserType == "Admin")
@@ -82,6 +84,7 @@ namespace ABC_Car_Traders.Main
             AddMenuItem("View Order Status", btnViewOrderStatus_Click);
         }
 
+        // Creates and configures menu buttons with consistent styling
         private void AddMenuItem(string text, EventHandler clickHandler)
         {
             Button button = new Button
@@ -161,6 +164,7 @@ namespace ABC_Car_Traders.Main
             LoadFormIntoPanel(new ViewOrderStatus(_currentUser));
         }
 
+        // Loads child forms into the main container panel
         private void LoadFormIntoPanel(Form form)
         {
             form.TopLevel = false;
@@ -179,10 +183,13 @@ namespace ABC_Car_Traders.Main
             {
                 _currentUser.Logout();
                 _currentUser = null;
-                this.Controls.Clear();
-                this.Close();
+                
+                // Create and show a new login form
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
+                
+                // Close the current main form
+                this.Close();
             }
         }
 
@@ -227,6 +234,7 @@ namespace ABC_Car_Traders.Main
             lblDateTime.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy HH:mm:ss");
         }
 
+        // Initializes dashboard widgets based on user role
         private void InitializeWidgets()
         {
             panelWidgets.Controls.Clear();
@@ -240,75 +248,7 @@ namespace ABC_Car_Traders.Main
             }
         }
 
-        private void InitializeAdminWidgets()
-        {
-            try
-            {
-                string totalCarsQuery = "SELECT COUNT(*) FROM Cars";
-                string totalCustomersQuery = "SELECT COUNT(*) FROM Users WHERE UserType = 'Customer'";
-                string completedOrdersQuery = "SELECT COUNT(*) FROM Orders WHERE OrderStatus = 'Shipped'";
-                string dueOrdersQuery = "SELECT COUNT(*) FROM Orders WHERE OrderStatus = 'Pending'";
-
-                int totalCars = GetScalarValue(totalCarsQuery);
-                int totalCustomers = GetScalarValue(totalCustomersQuery);
-                int completedOrders = GetScalarValue(completedOrdersQuery);
-                int dueOrders = GetScalarValue(dueOrdersQuery);
-
-                AddWidget("Total Cars", totalCars.ToString());
-                AddWidget("Total Customers", totalCustomers.ToString());
-                AddWidget("Completed Orders", completedOrders.ToString());
-                AddWidget("Due Orders", dueOrders.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred while loading the dashboard. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void InitializeCustomerWidgets()
-        {
-            try
-            {
-                string totalCarsQuery = "SELECT COUNT(*) FROM Cars";
-                string totalPartsQuery = "SELECT COUNT(*) FROM CarParts";
-                string customerOrdersQuery = $"SELECT COUNT(*) FROM Orders WHERE CustomerID = {_currentUser.UserID}";
-                string pendingOrdersQuery = $"SELECT COUNT(*) FROM Orders WHERE CustomerID = {_currentUser.UserID} AND OrderStatus = 'Pending'";
-
-                int totalCars = GetScalarValue(totalCarsQuery);
-                int totalParts = GetScalarValue(totalPartsQuery);
-                int customerOrders = GetScalarValue(customerOrdersQuery);
-                int pendingOrders = GetScalarValue(pendingOrdersQuery);
-
-                AddWidget("Available Cars", totalCars.ToString());
-                AddWidget("Available Parts", totalParts.ToString());
-                AddWidget("Your Orders", customerOrders.ToString());
-                AddWidget("Pending Orders", pendingOrders.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred while loading the dashboard. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private int GetScalarValue(string query)
-        {
-            try
-            {
-                DataTable dt = dbHelper.ExecuteQuery(query);
-                if (dt.Rows.Count > 0 && dt.Columns.Count > 0)
-                {
-                    return Convert.ToInt32(dt.Rows[0][0]);
-                }
-                Console.WriteLine($"Query returned no results: {query}");
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error executing query: {query}. Error: {ex.Message}");
-                return 0;
-            }
-        }
-
+        // Creates and configures individual dashboard widgets
         private void AddWidget(string title, string value)
         {
             Panel widgetPanel = new Panel

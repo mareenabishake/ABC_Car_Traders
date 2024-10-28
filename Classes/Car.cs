@@ -2,13 +2,16 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using ABC_Car_Traders.Classes.Utilities;
 
 namespace ABC_Car_Traders
 {
+    // Manages vehicle inventory and related operations
     public class Car
     {
         private DatabaseHelper dbHelper;
 
+        // Properties representing car information in the database
         public int CarID { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
@@ -20,10 +23,40 @@ namespace ABC_Car_Traders
             dbHelper = new DatabaseHelper();
         }
 
+        private void ValidateCarData(string make, string model, int year, decimal price)
+        {
+            if (string.IsNullOrWhiteSpace(make))
+                throw new ValidationException("Make is required.");
+                
+            if (string.IsNullOrWhiteSpace(model))
+                throw new ValidationException("Model is required.");
+                
+            if (year < 1900 || year > DateTime.Now.Year + 1)
+                throw new ValidationException("Invalid year.");
+                
+            if (price <= 0)
+                throw new ValidationException("Price must be greater than 0.");
+        }
+
+        // Adds a new vehicle to the inventory
         public void AddCar(string make, string model, int year, decimal price)
         {
             try
             {
+                ValidateCarData(make, model, year, price);
+
+                // Check if identical car exists
+                string checkQuery = "SELECT COUNT(*) FROM Cars WHERE Make = @Make AND Model = @Model AND Year = @Year";
+                SqlParameter[] checkParams = new SqlParameter[] {
+                    new SqlParameter("@Make", make),
+                    new SqlParameter("@Model", model),
+                    new SqlParameter("@Year", year)
+                };
+                int existingCount = Convert.ToInt32(dbHelper.ExecuteScalar(checkQuery, checkParams));
+                
+                if (existingCount > 0)
+                    throw new ValidationException("This car model already exists in inventory.");
+
                 string query = "INSERT INTO Cars (Make, Model, Year, Price) " +
                                "VALUES (@Make, @Model, @Year, @Price)";
                 SqlParameter[] parameters = new SqlParameter[]
@@ -37,12 +70,17 @@ namespace ABC_Car_Traders
                 dbHelper.ExecuteNonQuery(query, parameters);
                 MessageBox.Show("Car added successfully!");
             }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Failed to add car: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // Updates existing vehicle information
         public void EditCar(int carID, string make, string model, int year, decimal price)
         {
             try
@@ -66,6 +104,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Removes a vehicle from the inventory
         public void DeleteCar(int carID)
         {
             try
@@ -85,6 +124,7 @@ namespace ABC_Car_Traders
             }
         }
 
+        // Retrieval methods for vehicle information
         public DataTable GetCarDetails(int carID)
         {
             try
