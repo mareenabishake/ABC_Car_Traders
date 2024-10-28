@@ -39,7 +39,6 @@
             this.txtCarID = new System.Windows.Forms.TextBox();
             this.txtCustomerID = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnPlaceOrder = new System.Windows.Forms.Button();
             this.btnUpdateOrder = new System.Windows.Forms.Button();
             this.dgvManageOrders = new System.Windows.Forms.DataGridView();
             this.btnDeleteOrder = new System.Windows.Forms.Button();
@@ -160,25 +159,12 @@
             this.label6.TabIndex = 10;
             this.label6.Text = "Order Status";
             // 
-            // btnPlaceOrder
-            // 
-            this.btnPlaceOrder.BackColor = System.Drawing.Color.LightGreen;
-            this.btnPlaceOrder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnPlaceOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlaceOrder.Location = new System.Drawing.Point(99, 258);
-            this.btnPlaceOrder.Name = "btnPlaceOrder";
-            this.btnPlaceOrder.Size = new System.Drawing.Size(114, 35);
-            this.btnPlaceOrder.TabIndex = 11;
-            this.btnPlaceOrder.Text = "Place Order";
-            this.btnPlaceOrder.UseVisualStyleBackColor = false;
-            this.btnPlaceOrder.Click += new System.EventHandler(this.btnPlaceOrder_Click);
-            // 
             // btnUpdateOrder
             // 
             this.btnUpdateOrder.BackColor = System.Drawing.Color.SkyBlue;
             this.btnUpdateOrder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUpdateOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateOrder.Location = new System.Drawing.Point(231, 258);
+            this.btnUpdateOrder.Location = new System.Drawing.Point(168, 258);
             this.btnUpdateOrder.Name = "btnUpdateOrder";
             this.btnUpdateOrder.Size = new System.Drawing.Size(114, 35);
             this.btnUpdateOrder.TabIndex = 12;
@@ -201,7 +187,7 @@
             this.btnDeleteOrder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDeleteOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteOrder.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteOrder.Location = new System.Drawing.Point(362, 258);
+            this.btnDeleteOrder.Location = new System.Drawing.Point(311, 258);
             this.btnDeleteOrder.Name = "btnDeleteOrder";
             this.btnDeleteOrder.Size = new System.Drawing.Size(114, 35);
             this.btnDeleteOrder.TabIndex = 15;
@@ -241,7 +227,6 @@
             this.Controls.Add(this.btnDeleteOrder);
             this.Controls.Add(this.dgvManageOrders);
             this.Controls.Add(this.btnUpdateOrder);
-            this.Controls.Add(this.btnPlaceOrder);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtCustomerID);
             this.Controls.Add(this.txtCarID);
@@ -255,7 +240,6 @@
             this.Controls.Add(this.label1);
             this.Name = "ManageOrders";
             this.Text = "ManageOrders";
-            this.Load += new System.EventHandler(this.ManageOrders_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvManageOrders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -275,7 +259,6 @@
         private System.Windows.Forms.TextBox txtCarID;
         private System.Windows.Forms.TextBox txtCustomerID;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnPlaceOrder;
         private System.Windows.Forms.Button btnUpdateOrder;
         private System.Windows.Forms.DataGridView dgvManageOrders;
         private System.Windows.Forms.Button btnDeleteOrder;

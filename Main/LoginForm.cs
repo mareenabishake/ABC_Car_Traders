@@ -57,10 +57,9 @@ namespace ABC_Car_Traders
         {
             try
             {
-                RegistrationForm registrationForm = new RegistrationForm();
+                RegistrationForm registrationForm = new RegistrationForm(this);
                 registrationForm.Location = this.Location;
                 registrationForm.StartPosition = FormStartPosition.Manual;
-                registrationForm.FormClosing += delegate { this.Show(); };
                 registrationForm.Show();
                 this.Hide();
             }

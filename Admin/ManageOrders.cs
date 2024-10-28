@@ -52,56 +52,6 @@ namespace ABC_Car_Traders
             }
         }
 
-        // Event handler for placing new orders
-        // Validates required fields and handles both car and part orders
-        // Requires either CarID or PartID, and quantity for part orders
-        private void btnPlaceOrder_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(txtCustomerID.Text) ||
-                    (string.IsNullOrEmpty(txtCarID.Text) && string.IsNullOrEmpty(txtPartID.Text)))
-                {
-                    MessageBox.Show("Customer ID and either Car ID or Part ID are required.", 
-                        "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (!int.TryParse(txtCustomerID.Text, out int customerID))
-                {
-                    MessageBox.Show("Invalid Customer ID format.", "Validation Error", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                int? carID = null;
-                int? partID = null;
-                int? quantity = null;
-
-                if (!string.IsNullOrEmpty(txtCarID.Text) && !int.TryParse(txtCarID.Text, out int carIdValue))
-                {
-                    MessageBox.Show("Invalid Car ID format.", "Validation Error", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                else if (!string.IsNullOrEmpty(txtCarID.Text))
-                {
-                    carID = int.Parse(txtCarID.Text);
-                }
-
-                // Similar validation for partID and quantity
-                // ... validation code ...
-
-                order.PlaceOrder(customerID, carID, partID, quantity);
-                LoadOrderDetails();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error placing order: {ex.Message}", "Error", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         // Event handler for updating existing orders
         // Updates order status and refreshes the display
         private void btnUpdateOrder_Click(object sender, EventArgs e)
@@ -134,9 +84,5 @@ namespace ABC_Car_Traders
             LoadOrderDetails();
         }
 
-        private void ManageOrders_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

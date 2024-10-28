@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace ABC_Car_Traders
 {
@@ -128,20 +129,30 @@ namespace ABC_Car_Traders
         }
 
         // Retrieval methods for vehicle information
-        public DataTable GetCarDetails(int carID)
+        public DataTable GetCarDetails(int? carID = null, string carName = null)
         {
             try
             {
-                string query = "SELECT * FROM Cars WHERE CarID = @CarID";
-                SqlParameter[] parameters = new SqlParameter[] {
-                    new SqlParameter("@CarID", carID)
-                };
+                string query = "SELECT * FROM Cars WHERE 1=1";
+                List<SqlParameter> parameters = new List<SqlParameter>();
 
-                return dbHelper.ExecuteQuery(query, parameters);
+                if (carID.HasValue)
+                {
+                    query += " AND CarID = @CarID";
+                    parameters.Add(new SqlParameter("@CarID", carID.Value));
+                }
+
+                if (!string.IsNullOrEmpty(carName))
+                {
+                    query += " AND (Make LIKE @CarName OR Model LIKE @CarName)";
+                    parameters.Add(new SqlParameter("@CarName", "%" + carName + "%"));
+                }
+
+                return dbHelper.ExecuteQuery(query, parameters.ToArray());
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to retrieve car details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
                 return null;
             }
         }

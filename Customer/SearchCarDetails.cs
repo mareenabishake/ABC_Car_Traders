@@ -39,23 +39,33 @@ namespace ABC_Car_Traders
         {
             try
             {
-                if (string.IsNullOrEmpty(txtCarID.Text))
+                // If both fields are empty, show all cars
+                if (string.IsNullOrEmpty(txtCarID.Text) && string.IsNullOrEmpty(txtCarName.Text))
                 {
                     LoadAllCarDetails();
                     return;
                 }
 
-                if (!int.TryParse(txtCarID.Text, out int carId))
+                // Initialize variables for search parameters
+                int? carId = null;
+                string carName = txtCarName.Text.Trim();
+
+                // Try parse car ID if provided
+                if (!string.IsNullOrEmpty(txtCarID.Text))
                 {
-                    MessageBox.Show("Car ID must be a valid number.", "Validation Error", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    if (!int.TryParse(txtCarID.Text, out int id))
+                    {
+                        MessageBox.Show("Car ID must be a valid number.", "Validation Error", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    carId = id;
                 }
 
-                var result = car.GetCarDetails(carId);
+                var result = car.GetCarDetails(carId, carName);
                 if (result == null || result.Rows.Count == 0)
                 {
-                    MessageBox.Show("No cars found with the specified ID.", "Information", 
+                    MessageBox.Show("No cars found matching the search criteria.", "Information", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 dgvCarDetails.DataSource = result;
@@ -66,5 +76,7 @@ namespace ABC_Car_Traders
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 }

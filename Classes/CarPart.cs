@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace ABC_Car_Traders
 {
@@ -114,17 +115,26 @@ namespace ABC_Car_Traders
             }
         }
 
-        public DataTable GetCarPartDetails(int partID)
+        public DataTable GetCarPartDetails(int? partID = null, string partName = null)
         {
             try
             {
-                string query = "SELECT * FROM CarParts WHERE PartID = @PartID";
-                SqlParameter[] parameters = new SqlParameter[]
-                {
-                    new SqlParameter("@PartID", partID)
-                };
+                string query = "SELECT * FROM CarParts WHERE 1=1";
+                List<SqlParameter> parameters = new List<SqlParameter>();
 
-                return dbHelper.ExecuteQuery(query, parameters);
+                if (partID.HasValue)
+                {
+                    query += " AND PartID = @PartID";
+                    parameters.Add(new SqlParameter("@PartID", partID.Value));
+                }
+
+                if (!string.IsNullOrEmpty(partName))
+                {
+                    query += " AND Name LIKE @PartName";
+                    parameters.Add(new SqlParameter("@PartName", "%" + partName + "%"));
+                }
+
+                return dbHelper.ExecuteQuery(query, parameters.ToArray());
             }
             catch (Exception ex)
             {

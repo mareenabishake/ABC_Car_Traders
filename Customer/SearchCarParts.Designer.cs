@@ -33,6 +33,8 @@
             this.txtPartID = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvCarParts = new System.Windows.Forms.DataGridView();
+            this.txtPartName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarParts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +56,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(130, 143);
+            this.label2.Location = new System.Drawing.Point(51, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 20);
             this.label2.TabIndex = 1;
@@ -63,7 +65,7 @@
             // txtPartID
             // 
             this.txtPartID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPartID.Location = new System.Drawing.Point(195, 139);
+            this.txtPartID.Location = new System.Drawing.Point(113, 124);
             this.txtPartID.Name = "txtPartID";
             this.txtPartID.Size = new System.Drawing.Size(149, 26);
             this.txtPartID.TabIndex = 2;
@@ -73,7 +75,7 @@
             this.btnSearch.BackColor = System.Drawing.Color.SkyBlue;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(363, 138);
+            this.btnSearch.Location = new System.Drawing.Point(472, 174);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 28);
             this.btnSearch.TabIndex = 3;
@@ -91,12 +93,34 @@
             this.dgvCarParts.Size = new System.Drawing.Size(560, 150);
             this.dgvCarParts.TabIndex = 4;
             // 
+            // txtPartName
+            // 
+            this.txtPartName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPartName.Location = new System.Drawing.Point(386, 124);
+            this.txtPartName.Name = "txtPartName";
+            this.txtPartName.Size = new System.Drawing.Size(149, 26);
+            this.txtPartName.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Location = new System.Drawing.Point(301, 128);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 20);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Part Name";
+            // 
             // SearchCarParts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::ABC_Car_Traders.Properties.Resources.istockphoto_1209030907_612x612;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.txtPartName);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.dgvCarParts);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtPartID);
@@ -117,5 +141,7 @@
         private System.Windows.Forms.TextBox txtPartID;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridView dgvCarParts;
+        private System.Windows.Forms.TextBox txtPartName;
+        private System.Windows.Forms.Label label3;
     }
 }

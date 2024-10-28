@@ -33,6 +33,8 @@
             this.dgvCarDetails = new System.Windows.Forms.DataGridView();
             this.txtCarID = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.txtCarName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarDetails)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +56,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(134, 142);
+            this.label2.Location = new System.Drawing.Point(42, 139);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 20);
             this.label2.TabIndex = 1;
@@ -73,7 +75,7 @@
             // txtCarID
             // 
             this.txtCarID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCarID.Location = new System.Drawing.Point(195, 139);
+            this.txtCarID.Location = new System.Drawing.Point(103, 136);
             this.txtCarID.Name = "txtCarID";
             this.txtCarID.Size = new System.Drawing.Size(165, 26);
             this.txtCarID.TabIndex = 4;
@@ -83,13 +85,33 @@
             this.btnSearch.BackColor = System.Drawing.Color.SkyBlue;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(380, 137);
+            this.btnSearch.Location = new System.Drawing.Point(481, 187);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 30);
             this.btnSearch.TabIndex = 5;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtCarName
+            // 
+            this.txtCarName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCarName.Location = new System.Drawing.Point(376, 136);
+            this.txtCarName.Name = "txtCarName";
+            this.txtCarName.Size = new System.Drawing.Size(165, 26);
+            this.txtCarName.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Location = new System.Drawing.Point(294, 139);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 20);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Car Name";
             // 
             // SearchCarDetails
             // 
@@ -98,6 +120,8 @@
             this.BackgroundImage = global::ABC_Car_Traders.Properties.Resources.istockphoto_1209030907_612x612;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.txtCarName);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtCarID);
             this.Controls.Add(this.dgvCarDetails);
@@ -118,5 +142,7 @@
         private System.Windows.Forms.DataGridView dgvCarDetails;
         private System.Windows.Forms.TextBox txtCarID;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtCarName;
+        private System.Windows.Forms.Label label3;
     }
 }

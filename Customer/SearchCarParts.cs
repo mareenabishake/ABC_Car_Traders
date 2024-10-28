@@ -39,23 +39,33 @@ namespace ABC_Car_Traders
         {
             try
             {
-                if (string.IsNullOrEmpty(txtPartID.Text))
+                // If both fields are empty, show all parts
+                if (string.IsNullOrEmpty(txtPartID.Text) && string.IsNullOrEmpty(txtPartName.Text))
                 {
                     LoadAllCarPartDetails();
                     return;
                 }
 
-                if (!int.TryParse(txtPartID.Text, out int partId))
+                // Initialize variables for search parameters
+                int? partId = null;
+                string partName = txtPartName.Text.Trim();
+
+                // Try parse part ID if provided
+                if (!string.IsNullOrEmpty(txtPartID.Text))
                 {
-                    MessageBox.Show("Part ID must be a valid number.", "Validation Error", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    if (!int.TryParse(txtPartID.Text, out int id))
+                    {
+                        MessageBox.Show("Part ID must be a valid number.", "Validation Error", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    partId = id;
                 }
 
-                var result = carPart.GetCarPartDetails(partId);
+                var result = carPart.GetCarPartDetails(partId, partName);
                 if (result == null || result.Rows.Count == 0)
                 {
-                    MessageBox.Show("No parts found with the specified ID.", "Information", 
+                    MessageBox.Show("No parts found matching the search criteria.", "Information", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 dgvCarParts.DataSource = result;

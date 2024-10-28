@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Net.Mail;
 
 namespace ABC_Car_Traders
 {
@@ -19,30 +20,60 @@ namespace ABC_Car_Traders
         // Loads all customer details into the DataGridView
         private void LoadCustomerDetails()
         {
-            dgvCustomerDetails.DataSource = user.GetAllCustomerDetails();
+            try
+            {
+                dgvCustomerDetails.DataSource = user.GetAllCustomerDetails();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading customer details: {ex.Message}", 
+                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Event handler for adding new customers
         // Validates all required fields before creating new customer account
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtPassword.Text) || string.IsNullOrEmpty(txtCustomerName.Text) || string.IsNullOrEmpty(txtCustomerEmail.Text) || string.IsNullOrEmpty(txtCustomerPhone.Text) || string.IsNullOrEmpty(txtCustomerAddress.Text))
+            try
             {
-                MessageBox.Show("All fields except Customer ID are required to add a new customer.");
-                return;
-            }
+                if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtPassword.Text) || 
+                    string.IsNullOrEmpty(txtCustomerName.Text) || string.IsNullOrEmpty(txtCustomerEmail.Text) || 
+                    string.IsNullOrEmpty(txtCustomerPhone.Text) || string.IsNullOrEmpty(txtCustomerAddress.Text))
+                {
+                    MessageBox.Show("All fields except Customer ID are required to add a new customer.", 
+                                  "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            bool isAdded = user.Register(txtUsername.Text, txtPassword.Text, txtCustomerName.Text, txtCustomerEmail.Text, txtCustomerPhone.Text, txtCustomerAddress.Text);
+                // Validate email format
+                if (!IsValidEmail(txtCustomerEmail.Text))
+                {
+                    MessageBox.Show("Please enter a valid email address.", 
+                                  "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            if (isAdded)
-            {
-                MessageBox.Show("Customer added successfully!");
-                ClearFields();
-                LoadCustomerDetails(); // Refresh the DataGridView
+                bool isAdded = user.Register(txtUsername.Text, txtPassword.Text, txtCustomerName.Text, 
+                                           txtCustomerEmail.Text, txtCustomerPhone.Text, txtCustomerAddress.Text);
+
+                if (isAdded)
+                {
+                    MessageBox.Show("Customer added successfully!", "Success", 
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearFields();
+                    LoadCustomerDetails();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to add customer. The username might already exist.", 
+                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to add customer.");
+                MessageBox.Show($"Error adding customer: {ex.Message}", 
+                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -50,23 +81,50 @@ namespace ABC_Car_Traders
         // Updates customer information in the database
         private void btnEditCustomer_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCustomerID.Text))
+            try
             {
-                MessageBox.Show("Customer ID is required to edit customer details.");
-                return;
-            }
+                if (string.IsNullOrEmpty(txtCustomerID.Text))
+                {
+                    MessageBox.Show("Please select a customer to edit.", 
+                                  "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            bool isUpdated = user.EditCustomer(int.Parse(txtCustomerID.Text), txtCustomerName.Text, txtCustomerEmail.Text, txtCustomerPhone.Text, txtCustomerAddress.Text);
+                if (!int.TryParse(txtCustomerID.Text, out int customerID))
+                {
+                    MessageBox.Show("Invalid Customer ID.", 
+                                  "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            if (isUpdated)
-            {
-                MessageBox.Show("Customer updated successfully!");
-                ClearFields();
-                LoadCustomerDetails(); // Refresh the DataGridView
+                if (!IsValidEmail(txtCustomerEmail.Text))
+                {
+                    MessageBox.Show("Please enter a valid email address.", 
+                                  "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bool isUpdated = user.EditCustomer(customerID, txtCustomerName.Text, 
+                                                 txtCustomerEmail.Text, txtCustomerPhone.Text, 
+                                                 txtCustomerAddress.Text);
+
+                if (isUpdated)
+                {
+                    MessageBox.Show("Customer updated successfully!", "Success", 
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearFields();
+                    LoadCustomerDetails();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to update customer. The customer might not exist.", 
+                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to update customer.");
+                MessageBox.Show($"Error updating customer: {ex.Message}", 
+                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -74,23 +132,49 @@ namespace ABC_Car_Traders
         // Removes customer account from the system
         private void btnDeleteCustomer_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCustomerID.Text))
+            try
             {
-                MessageBox.Show("Customer ID is required to delete a customer.");
-                return;
-            }
+                if (string.IsNullOrEmpty(txtCustomerID.Text))
+                {
+                    MessageBox.Show("Please select a customer to delete.", 
+                                  "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            bool isDeleted = user.DeleteCustomer(int.Parse(txtCustomerID.Text));
+                if (!int.TryParse(txtCustomerID.Text, out int customerID))
+                {
+                    MessageBox.Show("Invalid Customer ID.", 
+                                  "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            if (isDeleted)
-            {
-                MessageBox.Show("Customer deleted successfully!");
-                ClearFields();
-                LoadCustomerDetails(); // Refresh the DataGridView
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this customer?", 
+                                                    "Confirm Delete", 
+                                                    MessageBoxButtons.YesNo, 
+                                                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    bool isDeleted = user.DeleteCustomer(customerID);
+
+                    if (isDeleted)
+                    {
+                        MessageBox.Show("Customer deleted successfully!", "Success", 
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearFields();
+                        LoadCustomerDetails();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete customer. The customer might not exist.", 
+                                      "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to delete customer.");
+                MessageBox.Show($"Error deleting customer: {ex.Message}", 
+                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -110,17 +194,39 @@ namespace ABC_Car_Traders
         // Populates form fields with selected customer details
         private void dgvCustomerDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            try
             {
-                DataGridViewRow row = dgvCustomerDetails.Rows[e.RowIndex];
+                if (e.RowIndex >= 0)
+                {
+                    DataGridViewRow row = dgvCustomerDetails.Rows[e.RowIndex];
 
-                txtCustomerID.Text = row.Cells["UserID"].Value.ToString();
-                txtUsername.Text = row.Cells["Username"].Value.ToString();
-                txtPassword.Text = row.Cells["Password"].Value.ToString(); 
-                txtCustomerName.Text = row.Cells["Name"].Value.ToString();
-                txtCustomerEmail.Text = row.Cells["Email"].Value.ToString();
-                txtCustomerPhone.Text = row.Cells["Phone"].Value.ToString();
-                txtCustomerAddress.Text = row.Cells["Address"].Value.ToString();
+                    txtCustomerID.Text = row.Cells["UserID"].Value?.ToString();
+                    txtUsername.Text = row.Cells["Username"].Value?.ToString();
+                    txtPassword.Text = row.Cells["Password"].Value?.ToString();
+                    txtCustomerName.Text = row.Cells["Name"].Value?.ToString();
+                    txtCustomerEmail.Text = row.Cells["Email"].Value?.ToString();
+                    txtCustomerPhone.Text = row.Cells["Phone"].Value?.ToString();
+                    txtCustomerAddress.Text = row.Cells["Address"].Value?.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error selecting customer: {ex.Message}", 
+                               "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Helper method to validate email format
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
             }
         }
     }
