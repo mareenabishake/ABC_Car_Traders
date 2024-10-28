@@ -191,7 +191,7 @@
             this.dgvManageOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvManageOrders.Location = new System.Drawing.Point(12, 317);
             this.dgvManageOrders.Name = "dgvManageOrders";
-            this.dgvManageOrders.Size = new System.Drawing.Size(560, 204);
+            this.dgvManageOrders.Size = new System.Drawing.Size(560, 150);
             this.dgvManageOrders.TabIndex = 14;
             this.dgvManageOrders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrders_CellClick);
             // 

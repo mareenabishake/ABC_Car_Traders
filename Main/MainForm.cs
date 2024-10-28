@@ -148,17 +148,17 @@ namespace ABC_Car_Traders.Main
 
         private void btnOrderCar_Click(object sender, EventArgs e)
         {
-            LoadFormIntoPanel(new OrderCar());
+            LoadFormIntoPanel(new OrderCar(_currentUser));
         }
 
         private void btnOrderCarParts_Click(object sender, EventArgs e)
         {
-            LoadFormIntoPanel(new OrderCarParts());
+            LoadFormIntoPanel(new OrderCarParts(_currentUser));
         }
 
         private void btnViewOrderStatus_Click(object sender, EventArgs e)
         {
-            LoadFormIntoPanel(new ViewOrderStatus());
+            LoadFormIntoPanel(new ViewOrderStatus(_currentUser));
         }
 
         private void LoadFormIntoPanel(Form form)

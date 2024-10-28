@@ -183,7 +183,7 @@
             this.dgvCarParts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCarParts.Location = new System.Drawing.Point(12, 281);
             this.dgvCarParts.Name = "dgvCarParts";
-            this.dgvCarParts.Size = new System.Drawing.Size(560, 226);
+            this.dgvCarParts.Size = new System.Drawing.Size(560, 150);
             this.dgvCarParts.TabIndex = 13;
             this.dgvCarParts.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarParts_CellClick);
             this.dgvCarParts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarParts_CellContentClick);

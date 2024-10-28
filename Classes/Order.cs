@@ -7,7 +7,7 @@ namespace ABC_Car_Traders
 {
     public class Order
     {
-        private DatabaseHelper dbHelper;
+        public DatabaseHelper dbHelper;
 
         public int OrderID { get; set; }
         public int CustomerID { get; set; }
@@ -136,6 +136,25 @@ namespace ABC_Car_Traders
             {
                 string query = "SELECT * FROM Orders";
                 return dbHelper.ExecuteQuery(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
+        public DataTable GetCustomerOrderDetails(int customerID)
+        {
+            try
+            {
+                string query = "SELECT OrderID, CarID, PartID, Quantity, OrderStatus FROM Orders WHERE CustomerID = @CustomerID";
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@CustomerID", customerID)
+                };
+
+                return dbHelper.ExecuteQuery(query, parameters);
             }
             catch (Exception ex)
             {

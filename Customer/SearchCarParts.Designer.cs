@@ -88,7 +88,7 @@
             this.dgvCarParts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCarParts.Location = new System.Drawing.Point(12, 221);
             this.dgvCarParts.Name = "dgvCarParts";
-            this.dgvCarParts.Size = new System.Drawing.Size(548, 230);
+            this.dgvCarParts.Size = new System.Drawing.Size(560, 150);
             this.dgvCarParts.TabIndex = 4;
             // 
             // SearchCarParts

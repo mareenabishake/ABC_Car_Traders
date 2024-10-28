@@ -7,11 +7,12 @@ namespace ABC_Car_Traders
     {
         private Order order;
 
-        public OrderCar()
+        public OrderCar(User CurrentUser)
         {
             InitializeComponent();
             order = new Order();
             LoadCarDetails();
+            txtCustomerID.Text = CurrentUser.UserID.ToString();
         }
 
         private void LoadCarDetails()
@@ -39,7 +40,6 @@ namespace ABC_Car_Traders
 
         private void ClearFields()
         {
-            txtCustomerID.Clear();
             txtCarID.Clear();
         }
 

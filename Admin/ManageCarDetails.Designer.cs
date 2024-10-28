@@ -205,7 +205,7 @@
             this.dgvCarDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCarDetails.Location = new System.Drawing.Point(12, 300);
             this.dgvCarDetails.Name = "dgvCarDetails";
-            this.dgvCarDetails.Size = new System.Drawing.Size(560, 215);
+            this.dgvCarDetails.Size = new System.Drawing.Size(560, 150);
             this.dgvCarDetails.TabIndex = 17;
             this.dgvCarDetails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarDetails_CellClick);
             // 

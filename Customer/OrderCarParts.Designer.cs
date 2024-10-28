@@ -119,6 +119,7 @@
             // 
             // txtCustomerID
             // 
+            this.txtCustomerID.Enabled = false;
             this.txtCustomerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCustomerID.Location = new System.Drawing.Point(141, 107);
             this.txtCustomerID.Name = "txtCustomerID";
@@ -132,7 +133,7 @@
             this.dgvPartDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPartDetails.Location = new System.Drawing.Point(6, 243);
             this.dgvPartDetails.Name = "dgvPartDetails";
-            this.dgvPartDetails.Size = new System.Drawing.Size(566, 189);
+            this.dgvPartDetails.Size = new System.Drawing.Size(560, 150);
             this.dgvPartDetails.TabIndex = 9;
             this.dgvPartDetails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarPartDetails_CellClick);
             // 

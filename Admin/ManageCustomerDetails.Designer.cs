@@ -209,7 +209,7 @@
             this.dgvCustomerDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCustomerDetails.Location = new System.Drawing.Point(12, 339);
             this.dgvCustomerDetails.Name = "dgvCustomerDetails";
-            this.dgvCustomerDetails.Size = new System.Drawing.Size(560, 193);
+            this.dgvCustomerDetails.Size = new System.Drawing.Size(560, 150);
             this.dgvCustomerDetails.TabIndex = 15;
             this.dgvCustomerDetails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomerDetails_CellClick);
             // 

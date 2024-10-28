@@ -7,11 +7,12 @@ namespace ABC_Car_Traders
     {
         private Order order;
 
-        public OrderCarParts()
+        public OrderCarParts(User CurrentUser)
         {
             InitializeComponent();
             order = new Order();
             LoadCarPartDetails();
+            txtCustomerID.Text = CurrentUser.UserID.ToString();
         }
 
         private void LoadCarPartDetails()

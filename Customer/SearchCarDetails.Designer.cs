@@ -67,7 +67,7 @@
             this.dgvCarDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCarDetails.Location = new System.Drawing.Point(14, 250);
             this.dgvCarDetails.Name = "dgvCarDetails";
-            this.dgvCarDetails.Size = new System.Drawing.Size(558, 237);
+            this.dgvCarDetails.Size = new System.Drawing.Size(560, 150);
             this.dgvCarDetails.TabIndex = 3;
             // 
             // txtCarID
