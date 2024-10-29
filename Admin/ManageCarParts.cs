@@ -53,8 +53,6 @@ namespace ABC_Car_Traders
                 carPart.AddCarPart(txtName.Text, txtDescription.Text, price);
                 ClearFields();
                 LoadCarPartDetails();
-                MessageBox.Show("Part added successfully!", "Success", 
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

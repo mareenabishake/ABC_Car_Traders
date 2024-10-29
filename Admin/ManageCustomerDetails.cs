@@ -23,6 +23,19 @@ namespace ABC_Car_Traders
             try
             {
                 dgvCustomerDetails.DataSource = user.GetAllCustomerDetails();
+                
+                // Check if Password column exists and set it to show password characters
+                if (dgvCustomerDetails.Columns["Password"] != null)
+                {
+                    foreach (DataGridViewRow row in dgvCustomerDetails.Rows)
+                    {
+                        if (row.Cells["Password"].Value != null)
+                        {
+                            // Replace actual password with asterisks
+                            row.Cells["Password"].Value = new string('*', row.Cells["Password"].Value.ToString().Length);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
