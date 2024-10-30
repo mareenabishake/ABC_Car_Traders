@@ -6,46 +6,59 @@ using System.Windows.Forms;
 namespace ABC_Car_Traders
 {
     // Handles order processing and management for both cars and parts
+    // Manages the complete order lifecycle including validation, creation, and status updates
     public class Order
     {
+        // Database helper instance for handling all database operations
         public DatabaseHelper dbHelper;
 
         // Properties representing order information in the database
-        public int OrderID { get; set; }
-        public int CustomerID { get; set; }
-        public int CarID { get; set; }
-        public int PartID { get; set; }
-        public string OrderStatus { get; set; }
+        public int OrderID { get; set; }          // Unique identifier for each order
+        public int CustomerID { get; set; }       // ID of the customer placing the order
+        public int CarID { get; set; }            // ID of the car being ordered (if applicable)
+        public int PartID { get; set; }           // ID of the part being ordered (if applicable)
+        public string OrderStatus { get; set; }   // Current status of the order (Pending, Completed, Cancelled)
 
+        // Constructor initializes database connection
         public Order()
         {
             dbHelper = new DatabaseHelper();
         }
 
+        // Validates order data before processing
+        // Ensures order meets business rules and data integrity requirements
+        // Throws ValidationException if validation fails
         private void ValidateOrder(int customerID, int? carID, int? partID, int? quantity)
         {
+            // Ensure customer ID is valid
             if (customerID <= 0)
                 throw new ValidationException("Invalid customer ID.");
             
+            // Ensure either car or part is specified, but not both
             if (!carID.HasValue && !partID.HasValue)
                 throw new ValidationException("Either car ID or part ID must be specified.");
             
             if (carID.HasValue && partID.HasValue)
                 throw new ValidationException("Cannot order both car and part simultaneously.");
             
+            // Validate quantity for part orders
             if (partID.HasValue && (!quantity.HasValue || quantity.Value <= 0))
                 throw new ValidationException("Quantity must be greater than 0 for part orders.");
         }
 
+        // Places a new order in the system
+        // Handles both car and part orders with appropriate validation
         public void PlaceOrder(int customerID, int? carID, int? partID, int? quantity)
         {
             try
             {
+                // Validate order data before processing
                 ValidateOrder(customerID, carID, partID, quantity);
 
-                // Verify inventory availability
+                // Verify car availability if ordering a car
                 if (carID.HasValue)
                 {
+                    // Check if the specified car exists in inventory
                     string checkCarQuery = "SELECT COUNT(*) as Count FROM Cars WHERE CarID = @CarID";
                     SqlParameter[] carParams = new SqlParameter[] {
                         new SqlParameter("@CarID", carID.Value)
@@ -57,6 +70,7 @@ namespace ABC_Car_Traders
                         throw new ValidationException("Specified car is not available.");
                 }
 
+                // Verify part availability if ordering a part
                 if (partID.HasValue)
                 {
                     string checkPartQuery = "SELECT COUNT(*) as Count FROM CarParts WHERE PartID = @PartID";
